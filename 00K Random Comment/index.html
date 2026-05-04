@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dior AW26 Caption Tool</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  background:#000;
+  color:#fff;
+  font-family: 'Inter', sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.card{
+  width:90%;
+  max-width:600px;
+  text-align:center;
+}
+
+h1{
+  font-family:'Playfair Display', serif;
+  font-size:28px;
+  margin-bottom:30px;
+  letter-spacing:1px;
+}
+
+.buttons button{
+  margin:5px;
+  padding:10px 20px;
+  border:1px solid #fff;
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.buttons button.active,
+.buttons button:hover{
+  background:#fff;
+  color:#000;
+}
+
+.main-btn{
+  margin-top:20px;
+  padding:12px 30px;
+  border:none;
+  background:#fff;
+  color:#000;
+  cursor:pointer;
+  font-weight:500;
+  transition:.3s;
+}
+
+.main-btn:hover{
+  transform:translateY(-3px);
+}
+
+.result{
+  margin-top:40px;
+  font-size:22px;
+  min-height:80px;
+  opacity:0;
+  transform:scale(0.95);
+  transition:.4s ease;
+}
+
+.result.show{
+  opacity:1;
+  transform:scale(1);
+}
+
+.counter{
+  margin-top:10px;
+  font-size:12px;
+  opacity:.6;
+}
+
+.toast{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#fff;
+  color:#000;
+  padding:10px 20px;
+  border-radius:20px;
+  opacity:0;
+  transition:.3s;
+}
+
+.toast.show{
+  opacity:1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>DIOR AW26 CAPTIONS</h1>
+
+<div class="buttons">
+  <button class="active" onclick="setPlatform('IG',this)">Instagram</button>
+  <button onclick="setPlatform('X',this)">X</button>
+</div>
+
+<button class="main-btn" onclick="spin()">RANDOM</button>
+<button class="main-btn" onclick="copy()">COPY</button>
+
+<div id="result" class="result"></div>
+<div id="counter" class="counter"></div>
+
+</div>
+
+<div id="toast" class="toast">Copied</div>
+
+<script>
+let allCaptions = [];
+let shuffled = [];
+let currentPlatform = "IG";
+let isLoaded = false;
+
+// 🔥 ใช้ no-cors fallback + retry
+async function loadData(){
+
+  try{
+    const res = await fetch("/api/captions");
+    const data = await res.json();
+
+    allCaptions = data.map(d => ({
+      platform: (d.platform || "").toUpperCase().trim(),
+      caption: (d.caption || "").trim()
+    }));
+
+    isLoaded = true;
+
+    filterPlatform();
+
+    document.getElementById("result").innerText = "พร้อมสุ่มแล้ว 🎉";
+
+  }catch(e){
+    document.getElementById("result").innerText = "โหลดข้อมูลไม่สำเร็จ (ลอง refresh)";
+  }
+
+}
+
+loadData();
+
+// เปลี่ยน platform
+function setPlatform(p,btn){
+  currentPlatform=p;
+  document.querySelectorAll(".buttons button")
+    .forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  filterPlatform();
+}
+
+// filter
+function filterPlatform(){
+
+  if(!isLoaded) return;
+
+  shuffled = allCaptions
+    .filter(c=>c.platform===currentPlatform)
+    .map(c=>c.caption);
+
+  shuffle();
+
+  document.getElementById("counter").innerText =
+    shuffled.length + " captions";
+}
+
+// shuffle
+function shuffle(){
+  for(let i=shuffled.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];
+  }
+}
+
+// 🎰 slot animation
+function spin(){
+
+  if(!isLoaded){
+    alert("กำลังโหลดข้อมูล...");
+    return;
+  }
+
+  if(shuffled.length === 0){
+    filterPlatform();
+  }
+
+  if(shuffled.length === 0){
+    document.getElementById("result").innerText = "ไม่มี caption";
+    return;
+  }
+
+  const resultEl = document.getElementById("result");
+
+  let i=0;
+
+  const interval = setInterval(()=>{
+
+    resultEl.innerText =
+      shuffled[Math.floor(Math.random()*shuffled.length)];
+
+    resultEl.classList.add("show");
+
+    i++;
+
+    if(i>15){
+
+      clearInterval(interval);
+
+      const final = shuffled.pop();
+
+      if(!final){
+        resultEl.innerText = "ไม่มี caption";
+        return;
+      }
+
+      resultEl.innerText = final + " — Lingling Kwong";
+
+      document.getElementById("counter").innerText =
+        shuffled.length + " left";
+
+    }
+
+  },80);
+}
+
+// copy
+function copy(){
+
+  const text=document.getElementById("result").innerText;
+
+  if(!text || text.includes("โหลด") || text.includes("ไม่มี")) return;
+
+  navigator.clipboard.writeText(text);
+
+  const toast=document.getElementById("toast");
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },1500);
+}
+</script>
+
+</body>
+</html>
