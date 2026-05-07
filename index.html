@@ -518,92 +518,31 @@ h1{
 
 <div id="toast" class="toast">Copied</div>
 
-<script type="module">
-
+<script> // เอา type="module" ออกเพื่อให้ใช้งาน onclick ได้ง่ายขึ้น
 let captionsData = [], hashtagData = [];
-let shuffled = [], used = [];
-
 let currentBrand = "Dior";
 let currentCampaign = "Dior_Fashion";
 let currentPlatform = "IG";
-
 let isSpinning = false;
 
-const n = t => (t || "")
-  .toLowerCase()
-  .replace(/\s|_/g, "");
+const n = t => (t || "").toLowerCase().replace(/\s|_/g, "");
 
-/* STATUS */
+const glow = {
+  Fashion: "#F9B2D744",
+  Beauty: "#CFECF344",
+  EyeWear: "#DAF9DE44",
+  PFW: "#D9C2FF44",
+  Cartier: "#F6FFDC44"
+};
+
+// --- ฟังก์ชันช่วยเหลือ ---
 function updateStatus() {
-  let label = currentCampaign
-    .replace("Dior_", "")
-    .replace("_", " ");
-
-  document.getElementById("statusText").innerText =
-    label + " • " + currentPlatform;
+  let label = currentCampaign.replace("Dior_", "").replace("_", " ");
+  document.getElementById("statusText").innerText = label + " • " + currentPlatform;
 }
 
-/* BRAND SWITCH */
-function setBrand(brand, btn) {
-  currentBrand = brand;
-
-  document.querySelectorAll(".brand-btn")
-    .forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-
-  const items = document.querySelectorAll(".campaign-item");
-
-  let firstVisible = null;
-
-  items.forEach(i => {
-    const c = i.dataset.c;
-
-    let show = false;
-
-    if (brand === "Dior") {
-      show = c.startsWith("Dior");
-    } else if (brand === "Cartier") {
-      show = c === "Cartier";
-    }
-
-    i.style.display = show ? "block" : "none";
-
-    if (show && !firstVisible) {
-      firstVisible = i;
-    }
-  });
-
-  // ❗ FIX: set campaign ให้ตรงตัวแรกที่เห็น
-  if (firstVisible) {
-    currentCampaign = firstVisible.dataset.c;
-
-    items.forEach(i => i.classList.remove("active"));
-    firstVisible.classList.add("active");
-
-    firstVisible.scrollIntoView({
-      behavior: "smooth",
-      inline: "center"
-    });
-  }
-
-  // reset platform
-  currentPlatform = "IG";
-
-  document.querySelectorAll(".platform-btn")
-    .forEach(b => b.classList.remove("active"));
-
-  document.querySelector(".platform-btn").classList.add("active");
-
-  theme(currentCampaign);
-  updateStatus();
-  filter();
-}
-
-
-/* THEME (FIXED) */
 function theme(c) {
   let t = "Fashion";
-  
   if (c === "Dior_Fashion") t = "Fashion";
   if (c === "Dior_Beauty") t = "Beauty";
   if (c === "Dior_EyeWear") t = "EyeWear";
@@ -611,255 +550,134 @@ function theme(c) {
   if (c === "Cartier") t = "Cartier";
 
   document.body.dataset.theme = t;
-  document.getElementById("cursorGlow").style.background =
-  `radial-gradient(circle, ${glow[t]}, transparent 60%)`;
+  const cursorGlow = document.getElementById("cursorGlow");
+  if (cursorGlow) cursorGlow.style.background = `radial-gradient(circle, ${glow[t]}, transparent 60%)`;
 }
 
-/* API */
-fetch("https://script.google.com/macros/s/AKfycbxJ0dA5vQGSh0kMcfHns_0CIlxsZX_4uGl9mTrYmi62RCokd_0s-1k1iFbBc8ZW1JUg/exec")
-.then(r => r.json())
-.then(d => {
-  hashtagData = d.hashtags || [];
-  filter();
-});
+// --- ฟังก์ชันที่ HTML เรียกใช้ (onclick) ---
+function setBrand(brand, btn) {
+  currentBrand = brand;
+  document.querySelectorAll(".brand-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
 
+  const items = document.querySelectorAll(".campaign-item");
+  let firstVisible = null;
 
-/* SWIPE */
-const items = document.querySelectorAll(".campaign-item");
+  items.forEach(i => {
+    const c = i.dataset.c;
+    let show = (brand === "Dior" && c.startsWith("Dior")) || (brand === "Cartier" && c === "Cartier");
+    i.style.display = show ? "block" : "none";
+    if (show && !firstVisible) firstVisible = i;
+  });
+
+  if (firstVisible) {
+    currentCampaign = firstVisible.dataset.c;
+    items.forEach(i => i.classList.remove("active"));
+    firstVisible.classList.add("active");
+    firstVisible.scrollIntoView({ behavior: "smooth", inline: "center" });
+  }
+
+  theme(currentCampaign);
+  updateStatus();
+  document.getElementById("result").classList.remove("show");
+}
+
+function setPlatform(p, btn) {
+  currentPlatform = p;
+  document.querySelectorAll(".platform-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  updateStatus();
+}
+
+// --- ดึงข้อมูล Hashtags จาก API ---
+fetch("https://script.google.com/macros/s/AKfycbz6dT-nJnLhj40Lwxykm00GvA0ZwoPAHevukZf7Me3Ld2q-nn1259ZlTS8poOJbbljy/exec")
+  .then(r => r.json())
+  .then(d => {
+    hashtagData = d.hashtags || [];
+    console.log("Hashtags Loaded:", hashtagData.length);
+  })
+  .catch(err => console.error("Fetch Error:", err));
+
+function getAllTags() {
+  const list = hashtagData.filter(h => 
+    n(h.brand) === n(currentBrand) &&
+    n(h.campaign) === n(currentCampaign) &&
+    n(h.platform) === n(currentPlatform)
+  );
+  return list.map(h => h.hashtags).join(" ");
+}
+
+// --- AI GENERATE ---
+async function spin() {
+  if (isSpinning) return;
+  isSpinning = true;
+
+  const el = document.getElementById("result");
+  el.classList.add("show");
+  el.innerText = "Generating...";
+
+  const promptMap = {
+    Dior_Fashion: "Write 1 short luxury fashion caption about Lingling Kwong and Dior. Elegant magazine tone. 1 sentence only.",
+    Dior_Beauty: "Write 1 short luxury beauty caption about Lingling Kwong and Dior Beauty. Soft elegant tone. 1 sentence only.",
+    Dior_EyeWear: "Write 1 chic luxury caption about Lingling Kwong and Dior Eyewear. Modern fashion tone. 1 sentence only.",
+    Dior_PFW: "Write 1 luxury Paris Fashion Week caption about Lingling Kwong and Dior. High fashion tone.",
+    Cartier: "Write 1 elegant jewelry caption about Lingling Kwong and Cartier. Luxury campaign tone."
+  };
+
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbz6dT-nJnLhj40Lwxykm00GvA0ZwoPAHevukZf7Me3Ld2q-nn1259ZlTS8poOJbbljy/exec", {
+      method: "POST",
+      body: JSON.stringify({ prompt: promptMap[currentCampaign] })
+    });
+
+    const data = await response.json();
+    let text = data.text || "No caption generated";
+    const tags = getAllTags();
+    
+    el.innerText = tags ? text + "\n\n" + tags : text;
+  } catch (err) {
+    el.innerText = "Error connection to AI";
+    console.error(err);
+  }
+  isSpinning = false;
+}
+
+function copy() {
+  const text = document.getElementById("result").innerText;
+  if(!text || text === "Generating...") return;
+  navigator.clipboard.writeText(text);
+  const toast = document.getElementById("toast");
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 1600);
+}
+
+// --- Scroll Detection ---
 const slider = document.getElementById("slider");
-
-function detect() {
+slider.addEventListener("scroll", () => {
   let mid = window.innerWidth / 2;
   let best = null;
   let dist = 9999;
 
   document.querySelectorAll(".campaign-item").forEach(i => {
-
     if (i.style.display === "none") return;
-
     let r = i.getBoundingClientRect();
     let d = Math.abs(mid - (r.left + r.width / 2));
-
-    if (d < dist) {
-      dist = d;
-      best = i;
-    }
+    if (d < dist) { dist = d; best = i; }
   });
 
-  if (!best) return;
-
-  document.querySelectorAll(".campaign-item")
-    .forEach(i => i.classList.remove("active"));
-
-  best.classList.add("active");
-
-  if (best.dataset.c !== currentCampaign) {
+  if (best && best.dataset.c !== currentCampaign) {
     currentCampaign = best.dataset.c;
-
+    document.querySelectorAll(".campaign-item").forEach(i => i.classList.remove("active"));
+    best.classList.add("active");
     theme(currentCampaign);
-
-    currentPlatform = "IG";
-
-    document.querySelectorAll(".platform-btn")
-      .forEach(b => b.classList.remove("active"));
-
-    document.querySelector(".platform-btn").classList.add("active");
-
     updateStatus();
-    filter();
   }
-}
+});
 
-const glow={
-  Fashion:"#F9B2D744",
-  Beauty:"#CFECF344",
-  EyeWear:"#DAF9DE44",
-  PFW:"#D9C2FF44",
-  Cartier:"#F6FFDC44"
-};
-
-slider.addEventListener("scroll", () => requestAnimationFrame(detect));
-
-items.forEach(i =>
-  i.onclick = () =>
-    i.scrollIntoView({ behavior: "smooth", inline: "center" })
-);
-
-/* PLATFORM */
-function setPlatform(p, btn) {
-  currentPlatform = p;
-
-  document.querySelectorAll(".platform-btn")
-    .forEach(b => b.classList.remove("active"));
-
-  btn.classList.add("active");
-
-  updateStatus();
-  filter();
-}
-
-/* FILTER */
-function filter() {
-
-  const el = document.getElementById("result");
-
-  el.innerText = "";
-  el.classList.remove("show");
-
-}
-
-function getAllTags() {
-
-  console.log("CURRENT:", currentCampaign, currentPlatform);
-
-  console.log(hashtagData);
-
-  const list = hashtagData.filter(h => {
-
-    console.log(
-      h.campaign,
-      h.platform,
-      n(h.campaign),
-      n(currentCampaign),
-      n(h.platform),
-      n(currentPlatform)
-    );
-
-    return (
-      n(h.brand) === n(currentBrand) &&
-      n(h.campaign) === n(currentCampaign) &&
-      n(h.platform) === n(currentPlatform)
-    );
-  });
-
-  console.log("MATCH:", list);
-
-  return list.map(h => h.hashtags).join(" ");
-}
-
-/* AI GENERATE */
-async function spin() {
-
-  if (isSpinning) return;
-
-  isSpinning = true;
-
-  const el = document.getElementById("result");
-
-  el.classList.add("show");
-  el.innerText = "Generating...";
-
-  try {
-
-    const promptMap = {
-
-  Dior_Fashion:
-`Write 1 short luxury fashion caption about Lingling Kwong and Dior.
-Elegant magazine tone.
-1 sentence only.
-Avoid repetitive wording.
-Optional emoji.`,
-
-  Dior_Beauty:
-`Write 1 short luxury beauty caption about Lingling Kwong and Dior Beauty.
-Soft elegant tone.
-1 sentence only.
-Optional emoji.`,
-
-  Dior_EyeWear:
-`Write 1 chic luxury caption about Lingling Kwong and Dior Eyewear.
-Modern fashion tone.
-1 sentence only.
-Optional emoji.`,
-
-  Dior_PFW:
-`Write 1 luxury Paris Fashion Week caption about Lingling Kwong and Dior.
-High fashion magazine tone.
-1 sentence only.
-Optional emoji.`,
-
-  Cartier:
-`Write 1 elegant jewelry caption about Lingling Kwong and Cartier.
-Luxury campaign tone.
-1 sentence only.
-Optional emoji.`
-};
-
-    const prompt = promptMap[currentCampaign];
-
-const response = await fetch(
-"https://script.google.com/macros/s/AKfycbxJ0dA5vQGSh0kMcfHns_0CIlxsZX_4uGl9mTrYmi62RCokd_0s-1k1iFbBc8ZW1JUg/exec",
-{
-method: "POST",
-body: JSON.stringify({
-prompt: prompt
-})
-}
-);
-
-const raw = await response.text();
-
-console.log(raw);
-
-const data = JSON.parse(raw);
-
-console.log(data);
-
-let text = data.text || data.error;
-
-console.log("TEXT:", text);
-
-if (!text) {
-
-  el.innerText = "No caption generated";
-
-  isSpinning = false;
-  return;
-}
-
-    const tags = getAllTags();
-
-    if (tags) {
-      text += "\n\n" + tags;
-    }
-
-    el.innerText = text;
-
-  } catch(err){
-
-    console.log(err);
-
-    el.innerText = "Error generating caption";
-  }
-
-  isSpinning = false;
-}
-
-function copy() {
-
-  const text =
-    document.getElementById("result").innerText;
-
-  navigator.clipboard.writeText(text);
-
-  const toast =
-    document.getElementById("toast");
-
-  toast.classList.add("show");
-
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 1600);
-}
-
-/* EXPORT FUNCTIONS */
-window.spin = spin;
-window.copy = copy;
-window.setBrand = setBrand;
-window.setPlatform = setPlatform;
-
+// Initial Setup
+updateStatus();
+theme(currentCampaign);
 </script>
-
 
 </body>
 </html>
