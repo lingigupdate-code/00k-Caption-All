@@ -616,15 +616,11 @@ function theme(c) {
 }
 
 /* API */
-fetch("https://script.google.com/macros/s/AKfycbxt8S4NR2iiuKaQKhunfE7JiZFsA_gxaIc_7qg7MLk7xeCy47-cgmqfhuoTbmZGbKIC/exec")
+fetch("https://script.google.com/macros/s/AKfycby8cSIPQ2c7P0p6hYLDr6_IA2osLR7X8mhUDfBtv3eTHeZcBJhu1zD_3sUVTKnsD1AU/exec")
 .then(r => r.json())
 .then(d => {
-
-  console.log(d);
-
-  captionsData = d.captions || [];
   hashtagData = d.hashtags || [];
-
+  filter();
 });
 
 
@@ -820,29 +816,37 @@ Sometimes add subtle luxury emojis.
 
     const prompt = promptMap[currentCampaign];
 
-    const response = await fetch(
-  "https://script.google.com/macros/s/AKfycbxt8S4NR2iiuKaQKhunfE7JiZFsA_gxaIc_7qg7MLk7xeCy47-cgmqfhuoTbmZGbKIC/exec",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      prompt: prompt
-    })
-  }
+const response = await fetch(
+"https://script.google.com/macros/s/AKfycby8cSIPQ2c7P0p6hYLDr6_IA2osLR7X8mhUDfBtv3eTHeZcBJhu1zD_3sUVTKnsD1AU/exec",
+{
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+prompt: prompt
+})
+}
 );
 
-const data = await response.json();
+const raw = await response.text();
 
-let text =
-  data.candidates?.[0]?.content?.parts?.[0]?.text;
+console.log(raw);
 
-if (!text) {
-  el.innerText = "No caption generated";
-  isSpinning = false;
-  return;
+const data = JSON.parse(raw);
+
+console.log(data);
+
+if (!response.ok) {
+
+el.innerText =
+data.error || "Server Error";
+
+isSpinning = false;
+return;
 }
+
+let text = data.text;
 
     const tags = getAllTags();
 
@@ -860,6 +864,23 @@ if (!text) {
   }
 
   isSpinning = false;
+}
+
+function copy() {
+
+  const text =
+    document.getElementById("result").innerText;
+
+  navigator.clipboard.writeText(text);
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 1600);
 }
 
 /* EXPORT FUNCTIONS */
