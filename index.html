@@ -753,66 +753,37 @@ async function spin() {
 
     const promptMap = {
 
-      Dior_Fashion: `
-Act as if you work in fashion media.
-
-Write 1 short luxury-style caption praising Lingling Kwong in relation with Dior Fashion.
-
-Use elegant magazine vocabulary.
-Sentence must contain "Lingling Kwong and Dior".
-Use different sentence patterns every time.
-Sometimes add 1-2 fashion related emojis.
+  Dior_Fashion:
+`Write 1 short luxury fashion caption about Lingling Kwong and Dior.
+Elegant magazine tone.
+1 sentence only.
 Avoid repetitive wording.
-`,
+Optional emoji.`,
 
-      Dior_Beauty: `
-Act as beauty editor.
+  Dior_Beauty:
+`Write 1 short luxury beauty caption about Lingling Kwong and Dior Beauty.
+Soft elegant tone.
+1 sentence only.
+Optional emoji.`,
 
-Write 1 short luxury beauty caption about Lingling Kwong and Dior Beauty.
+  Dior_EyeWear:
+`Write 1 chic luxury caption about Lingling Kwong and Dior Eyewear.
+Modern fashion tone.
+1 sentence only.
+Optional emoji.`,
 
-Use soft premium beauty magazine tone.
-Must contain "Lingling Kwong and Dior".
-Avoid repetitive wording.
-Sometimes add elegant emoji.
-`,
+  Dior_PFW:
+`Write 1 luxury Paris Fashion Week caption about Lingling Kwong and Dior.
+High fashion magazine tone.
+1 sentence only.
+Optional emoji.`,
 
-      Dior_EyeWear: `
-Act as fashion editor.
-
-Write 1 chic caption about Lingling Kwong and Dior Eyewear.
-
-Use modern luxury fashion vocabulary.
-Sentence must contain "Lingling Kwong and Dior".
-Avoid repetition.
-Sometimes include stylish emojis.
-`,
-
-      Dior_PFW: `
-Act as you work in fashion industry.
-
-Praise Lingling Kwong in general terms using luxury magazine vocabulary.
-
-She attends Paris Fashion Week with Dior.
-
-Sentence must contain "Lingling Kwong and Dior".
-
-Use different patterns every time.
-No repetitive wording.
-Sometimes include 1-2 luxury/fashion emojis.
-Generate only 1 sentence.
-`,
-
-      Cartier: `
-Act as luxury jewelry editor.
-
-Write 1 elegant caption about Lingling Kwong and Cartier.
-
-Use premium jewelry campaign vocabulary.
-Must contain "Lingling Kwong and Cartier".
-Avoid repetitive sentences.
-Sometimes add subtle luxury emojis.
-`
-    };
+  Cartier:
+`Write 1 elegant jewelry caption about Lingling Kwong and Cartier.
+Luxury campaign tone.
+1 sentence only.
+Optional emoji.`
+};
 
     const prompt = promptMap[currentCampaign];
 
