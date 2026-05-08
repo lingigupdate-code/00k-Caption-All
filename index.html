@@ -149,12 +149,13 @@ h1{ font-family:'Outfit',sans-serif; font-weight:600; margin:0; color:#fff; text
 
   <div class="status" id="statusText">Fashion • IG</div>
   <div class="campaign-slider" id="slider">
-    <div class="campaign-item active" data-c="Dior_Fashion" onclick="selectCampaign(this)">Fashion</div>
-    <div class="campaign-item" data-c="Dior_Beauty" onclick="selectCampaign(this)">Beauty</div>
-    <div class="campaign-item" data-c="Dior_EyeWear" onclick="selectCampaign(this)">Eyewear</div>
-    <div class="campaign-item" data-c="Dior_PFW" onclick="selectCampaign(this)">PFW</div>
-    <div class="campaign-item" data-c="Cartier" onclick="selectCampaign(this)">Cartier</div>
-  </div>
+  <div class="campaign-item active" data-c="Dior_Fashion" onclick="selectCampaign(this)">Fashion</div>
+  <div class="campaign-item" data-c="Dior_Beauty" onclick="selectCampaign(this)">Beauty</div>
+  <div class="campaign-item" data-c="Dior_EyeWear" onclick="selectCampaign(this)">Eyewear</div>
+  <div class="campaign-item" data-c="Dior_PFW" onclick="selectCampaign(this)">PFW</div>
+  
+  <div class="campaign-item" data-c="Cartier" onclick="selectCampaign(this)" style="display:none;">Cartier</div>
+</div>
 
   <div class="platform-row">
     <button class="platform-btn active" onclick="setPlatform('IG',this)">IG</button>
@@ -274,17 +275,30 @@ function theme(c) {
 
 function setBrand(brand, btn) {
   currentBrand = brand;
+  
+  // 1. เปลี่ยนสถานะปุ่ม Brand Tabs
   document.querySelectorAll(".brand-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
+  
+  // 2. กรอง Campaign Items
   const items = document.querySelectorAll(".campaign-item");
   let firstVisible = null;
+
   items.forEach(i => {
     const c = i.dataset.c;
+    // เงื่อนไข: ถ้าเลือก Dior ให้โชว์เฉพาะอันที่ขึ้นต้นด้วย Dior | ถ้าเลือก Cartier ให้โชว์เฉพาะ Cartier
     let show = (brand === "Dior" && c.startsWith("Dior")) || (brand === "Cartier" && c === "Cartier");
+    
     i.style.display = show ? "block" : "none";
+    
+    // เก็บตัวแรกที่มองเห็นไว้เพื่อตั้งค่าเป็น Active อัตโนมัติ
     if (show && !firstVisible) firstVisible = i;
   });
-  if (firstVisible) selectCampaign(firstVisible);
+
+  // 3. บังคับเลือกแคมเปญแรกของแบรนด์นั้นๆ ทันทีที่เปลี่ยนแบรนด์
+  if (firstVisible) {
+    selectCampaign(firstVisible);
+  }
 }
 
 function selectCampaign(element) {
