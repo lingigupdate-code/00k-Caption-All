@@ -27,22 +27,15 @@ body{
   margin:0;
   color:#111;
   font-family:'Plus Jakarta Sans',sans-serif;
-
   display:flex;
   justify-content:center;
   align-items:center;
-
   padding:12px;
-
   min-height:100vh;
-
   overflow-x:hidden;
-
   box-sizing:border-box;
-  
   background-attachment:fixed;
   background-color:#000;
-
 }
 
 #cursorGlow{
@@ -58,462 +51,123 @@ body{
 }
 
 /* 🎨 dynamic backgrounds */
-
-body[data-theme="Fashion"]{
-  background-color:#1d1b1c;
-
-  background-image:
-    linear-gradient(rgba(0,0,0,.28), rgba(0,0,0,.28)),
-    url("https://lingigupdate-code.github.io/00k-Caption/image/fashion.jpg");
-
-  background-size:contain;
-    background-position:center center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-}
-
-body[data-theme="Beauty"]{
-  background-color:#d9d0cf;
-
-  background-image:
-    linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
-    url("https://lingigupdate-code.github.io/00k-Caption/image/beauty.jpg");
-
-    background-size:contain;
-    background-position:center center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-}
-
-body[data-theme="EyeWear"]{
-  background-color:#cfc7b8;
-
-  background-image:
-    linear-gradient(rgba(0,0,0,.20), rgba(0,0,0,.20)),
-    url("https://lingigupdate-code.github.io/00k-Caption/image/eyewear.jpg");
-
-  background-size:contain;
-    background-position:center center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-}
-
-
-body[data-theme="PFW"]{
-  background-color:#2a2328;
-
-  background-image:
-    linear-gradient(rgba(0,0,0,.30), rgba(0,0,0,.30)),
-    url("https://lingigupdate-code.github.io/00k-Caption/image/pfw.jpg");
-
-  background-size:contain;
-    background-position:center center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-}
-
-body[data-theme="Cartier"]{
-  background-color:#b8aa8c;
-
-  background-image:
-    linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
-    url("https://lingigupdate-code.github.io/00k-Caption/image/cartier.jpg");
-
-  background-size:contain;
-    background-position:center center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-}
+body[data-theme="Fashion"]{ background-color:#1d1b1c; background-image: linear-gradient(rgba(0,0,0,.28), rgba(0,0,0,.28)), url("https://lingigupdate-code.github.io/00k-Caption/image/fashion.jpg"); background-size:contain; background-position:center center; background-repeat:no-repeat; background-attachment:fixed; }
+body[data-theme="Beauty"]{ background-color:#d9d0cf; background-image: linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)), url("https://lingigupdate-code.github.io/00k-Caption/image/beauty.jpg"); background-size:contain; background-position:center center; background-repeat:no-repeat; background-attachment:fixed; }
+body[data-theme="EyeWear"]{ background-color:#cfc7b8; background-image: linear-gradient(rgba(0,0,0,.20), rgba(0,0,0,.20)), url("https://lingigupdate-code.github.io/00k-Caption/image/eyewear.jpg"); background-size:contain; background-position:center center; background-repeat:no-repeat; background-attachment:fixed; }
+body[data-theme="PFW"]{ background-color:#2a2328; background-image: linear-gradient(rgba(0,0,0,.30), rgba(0,0,0,.30)), url("https://lingigupdate-code.github.io/00k-Caption/image/pfw.jpg"); background-size:contain; background-position:center center; background-repeat:no-repeat; background-attachment:fixed; }
+body[data-theme="Cartier"]{ background-color:#b8aa8c; background-image: linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)), url("https://lingigupdate-code.github.io/00k-Caption/image/cartier.jpg"); background-size:contain; background-position:center center; background-repeat:no-repeat; background-attachment:fixed; }
 
 /* card */
 .card{
   position:relative;
   z-index:2;
-
   width:100%;
   max-width:420px;
-
   display:flex;
   flex-direction:column;
   gap:14px;
-
-  /* 🔥 โปร่งขึ้น */
-  background:rgba(255,255,255,0.0015);
-
-  /* 🔥 glass effect */
-  backdrop-filter:blur(2px);
-  -webkit-backdrop-filter:blur(2px);
-
+  background:rgba(255,255,255,0.01);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
   border:1px solid rgba(255,255,255,0.08);
-
   border-radius:10px;
-
   padding:20px;
-
-  /* 🔥 ไม่ยาวเกินจอ */
   height:auto;
   max-height:92vh;
   overflow-y:auto;
   box-sizing:border-box;
-  box-shadow:
-    0 8px 32px rgba(0,0,0,0.10);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
 }
 
-/* title */
-h1{
-  font-family:'Outfit',sans-serif;
-  font-weight:600;
-  margin:0;
+h1{ font-family:'Outfit',sans-serif; font-weight:600; margin:0; color:#fff; text-shadow: 0 2px 12px rgba(0,0,0,.35); letter-spacing:.5px; }
+.status{ font-size:12px; color:rgba(255,255,255,.78); letter-spacing:.3px; }
 
-  color:#fff;
-
-  text-shadow:
-    0 2px 12px rgba(0,0,0,.35);
-
-  letter-spacing:.5px;
-}
-
-
-/* status */
-.status{
-  font-size:12px;
-
-  color:rgba(255,255,255,.78);
-
-  letter-spacing:.3px;
-}
-
-/* campaign */
-.campaign-slider{
-  display:flex;
-
-  overflow-x:auto;
-
-  gap:14px;
-
-  padding:4px 22px;
-
-  scroll-snap-type:x mandatory;
-
-  scroll-padding:22px;
-}
-
+.campaign-slider{ display:flex; overflow-x:auto; gap:14px; padding:4px 22px; scroll-snap-type:x mandatory; scroll-padding:22px; }
 .campaign-slider::-webkit-scrollbar{display:none;}
+.campaign-item{ flex:0 0 64%; padding:14px; border-radius:18px; background:rgba(255,255,255,0.06); color:rgba(255,255,255,.78); backdrop-filter:blur(8px); transform:scale(.88); opacity:.72; transition:.3s; border:1px solid rgba(255,255,255,0.10); scroll-snap-align:center; }
+.campaign-item.active{ transform:scale(1); opacity:1; background:rgba(255,255,255,.72); color:#111; box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
 
-.campaign-item{
-  flex:0 0 64%;
+.platform-row{ display:flex; gap:10px; }
+.platform-btn{ flex:1; text-align:center; font-size:14px; padding:10px 0; border-radius:20px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.08); backdrop-filter:blur(8px); color:#fff; }
+.platform-btn.active{ background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#000; }
 
-  padding:14px;
-
-  border-radius:18px;
-
-  background:rgba(255,255,255,0.06);
-
-  color:rgba(255,255,255,.78);
-
-  backdrop-filter:blur(8px);
-
-  transform:scale(.88);
-
-  opacity:.72;
-
-  transition:.3s;
-
-  border:1px solid rgba(255,255,255,0.10);
-
-  scroll-snap-align:center;
-}
-
-
-.campaign-item.active{
-  transform:scale(1);
-
-  opacity:1;
-
-  background:rgba(255,255,255,.72);
-
-  color:#111;
-
-  box-shadow:
-    0 8px 20px rgba(0,0,0,0.12);
-}
-
-/* platform scroll */
-.platform-row{
-  display:flex;
-  gap:10px;
-}
-
-.platform-btn{
-  flex:1;
-
-  text-align:center;
-
-  font-size:14px;
-
-  padding:10px 0;
-
-  border-radius:20px;
-
-  border:1px solid rgba(255,255,255,0.12);
-
-  background:rgba(255,255,255,0.08);
-
-  backdrop-filter:blur(8px);
-
-  color:#fff;
-}
-
-.platform-btn.active{
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  color:#000;
-}
-
-
-/* actions */
-.actions{
-  display:flex;
-  gap:10px;
-}
-
-.main-btn{
-  flex:1;
-  padding:14px;
-  border-radius:20px;
-  border:none;
-  background:#000;
-  color:#fff;
-  font-weight:600;
-}
-
-.copy-btn{
-  flex:.6;
-}
+.actions{ display:flex; gap:10px; }
+.main-btn{ flex:1; padding:14px; border-radius:20px; border:none; background:#000; color:#fff; font-weight:600; cursor: pointer;}
+.copy-btn{ flex:.6; }
 
 /* result */
 .result{
-  min-height:auto;
-
+  min-height: 80px;
   max-height:260px;
-
   overflow-y:auto;
-
   padding:16px;
-
   border-radius:20px;
-
   background:rgba(255,255,255,0.08);
-
   backdrop-filter:blur(3px);
-
   border:1px solid rgba(255,255,255,0.10);
-
   white-space:pre-line;
-
   opacity:0;
-
   color:#fff;
-
   line-height:1.7;
-
-  text-shadow:
-    0 1px 10px rgba(0,0,0,.25);
+  text-shadow: 0 1px 10px rgba(0,0,0,.25);
+  transition: opacity 0.3s;
 }
+.result.show{ opacity:1; }
 
-.result.show{
-  opacity:1;
+.brand-tabs{ display:flex; gap:12px; width:100%; }
+.brand-btn{ flex:1; padding:13px 0; border-radius:20px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.06); backdrop-filter:blur(10px); color:rgba(255,255,255,.78); font-weight:600; text-align:center; transition:.28s ease; }
+.brand-btn.active{ color:#111; background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.55)); border:1px solid rgba(255,255,255,.28); transform:translateY(-1px); }
+
+.toast{ position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); padding:12px 22px; border-radius:999px; background:rgba(255,255,255,0.14); backdrop-filter:blur(5px); border:1px solid rgba(255,255,255,0.16); color:#fff; font-size:14px; font-weight:600; opacity:0; pointer-events:none; z-index:9999; transition: 0.3s; }
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* 🌀 Spinner */
+.spinner {
+  width: 24px; height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-left-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 10px auto;
+  display: none;
 }
-.brand-tabs{
-  display:flex;
-  gap:12px;
-  width:100%;
-}
-
-.brand-btn{
-  flex:1;
-
-  padding:13px 0;
-
-  border-radius:20px;
-
-  border:1px solid rgba(255,255,255,0.12);
-
-  background:rgba(255,255,255,0.06);
-
-  backdrop-filter:blur(10px);
-
-  color:rgba(255,255,255,.78);
-
-  font-weight:600;
-
-  letter-spacing:.4px;
-
-  text-align:center;
-
-  transition:.28s ease;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.06);
-}
-
-/* ✨ ACTIVE */
-.brand-btn.active{
-  color:#111;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.95),
-      rgba(255,255,255,.55)
-    );
-
-  border:1px solid rgba(255,255,255,.28);
-
-  box-shadow:
-    0 8px 24px rgba(0,0,0,.18),
-    inset 0 1px 0 rgba(255,255,255,.5);
-
-  transform:translateY(-1px);
-}
-
-/* 💗 Dior */
-.brand-btn:first-child.active{
-  background:
-    linear-gradient(
-      135deg,
-      rgba(249,178,215,.95),
-      rgba(255,255,255,.72)
-    );
-}
-
-/* 💛 Cartier */
-.brand-btn:last-child.active{
-  background:
-    linear-gradient(
-      135deg,
-      rgba(246,255,220,.95),
-      rgba(255,255,255,.72)
-    );
-}
-
-@media(max-width:768px){
-
-  h1{
-    font-size:28px;
-  }
-
-  body[data-theme]{
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-attachment:scroll;
-  }
-
-  .campaign-item{
-    flex:0 0 62%;
-  }
-
-  .main-btn{
-    padding:12px;
-  }
-
-  .platform-btn,
-  .brand-btn{
-    padding:10px;
-  }
-
-  .result{
-    max-height:180px;
-    font-size:14px;
-  }
-}
-
-.card::-webkit-scrollbar,
-.result::-webkit-scrollbar,
-.campaign-slider::-webkit-scrollbar{
-  display:none;
-}
-
-.toast{
-  position:fixed;
-
-  bottom:24px;
-  left:50%;
-
-  transform:translateX(-50%) translateY(20px);
-
-  padding:12px 22px;
-
-  border-radius:999px;
-
-  background:rgba(255,255,255,0.14);
-
-  backdrop-filter:blur(5px);
-
-  border:1px solid rgba(255,255,255,0.16);
-
-  color:#fff;
-
-  font-size:14px;
-  font-weight:600;
-
-  letter-spacing:.3px;
-
-  opacity:0;
-
-  pointer-events:none;
-
-  z-index:9999;
-
-  transition:
-    opacity .3s ease,
-    transform .3s ease;
-}
-
-.toast.show{
-  opacity:1;
-
-  transform:translateX(-50%) translateY(0);
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 </style>
-
 </head>
 
 <body data-theme="Fashion">
-
 <div id="cursorGlow"></div>
 
 <div class="card">
+  <h1>00K CAPTIONS</h1>
 
-<h1>00K CAPTIONS</h1>
+  <div class="brand-tabs">
+    <button class="brand-btn active" onclick="setBrand('Dior',this)">Dior</button>
+    <button class="brand-btn" onclick="setBrand('Cartier',this)">Cartier</button>
+  </div>
 
-<div class="brand-tabs">
-  <button class="brand-btn active" onclick="setBrand('Dior',this)">Dior</button>
-  <button class="brand-btn" onclick="setBrand('Cartier',this)">Cartier</button>
-</div>
+  <div class="status" id="statusText">Fashion • IG</div>
+  <div class="campaign-slider" id="slider">
+    <div class="campaign-item active" data-c="Dior_Fashion" onclick="selectCampaign(this)">Fashion</div>
+    <div class="campaign-item" data-c="Dior_Beauty" onclick="selectCampaign(this)">Beauty</div>
+    <div class="campaign-item" data-c="Dior_EyeWear" onclick="selectCampaign(this)">Eyewear</div>
+    <div class="campaign-item" data-c="Dior_PFW" onclick="selectCampaign(this)">PFW</div>
+    <div class="campaign-item" data-c="Cartier" onclick="selectCampaign(this)">Cartier</div>
+  </div>
 
-<div class="status" id="statusText">Fashion • IG</div>
-<div class="campaign-slider" id="slider">
-  <div class="campaign-item active" data-c="Dior_Fashion" onclick="selectCampaign(this)">Fashion</div>
-  <div class="campaign-item" data-c="Dior_Beauty" onclick="selectCampaign(this)">Beauty</div>
-  <div class="campaign-item" data-c="Dior_EyeWear" onclick="selectCampaign(this)">Eyewear</div>
-  <div class="campaign-item" data-c="Dior_PFW" onclick="selectCampaign(this)">PFW</div>
-  <div class="campaign-item" data-c="Cartier" onclick="selectCampaign(this)">Cartier</div>
-</div>
+  <div class="platform-row">
+    <button class="platform-btn active" onclick="setPlatform('IG',this)">IG</button>
+    <button class="platform-btn" onclick="setPlatform('X',this)">X</button>
+  </div>
 
-<div class="platform-row">
-  <button class="platform-btn active" onclick="setPlatform('IG',this)">IG</button>
-  <button class="platform-btn" onclick="setPlatform('X',this)">X</button>
-</div>
+  <div class="actions">
+    <button class="main-btn" onclick="spin()">✨ RANDOM</button>
+    <button class="main-btn copy-btn" onclick="copy()">COPY</button>
+  </div>
 
-<div class="actions">
-  <button class="main-btn" onclick="spin()">✨ RANDOM</button>
-  <button class="main-btn copy-btn" onclick="copy()">COPY</button>
-</div>
-
-<div id="result" class="result"></div>
-
+  <div id="loadingArea" class="spinner"></div>
+  <div id="result" class="result"></div>
 </div>
 
 <div id="toast" class="toast">Copied</div>
@@ -524,104 +178,83 @@ let currentBrand = "Dior";
 let currentCampaign = "Dior_Fashion";
 let currentPlatform = "IG";
 let isSpinning = false;
-let usedCaptions = []; 
 
 const n = t => (t || "").toLowerCase().replace(/\s|_/g, "");
+const glow = { Fashion: "#F9B2D744", Beauty: "#CFECF344", EyeWear: "#DAF9DE44", PFW: "#D9C2FF44", Cartier: "#F6FFDC44" };
 
-const glow = {
-  Fashion: "#F9B2D744",
-  Beauty: "#CFECF344",
-  EyeWear: "#DAF9DE44",
-  PFW: "#D9C2FF44",
-  Cartier: "#F6FFDC44"
-};
-
-// --- ฟังก์ชันสร้าง Prompt แบบหรูหรา (ปรับให้เหมาะสมกับขีดจำกัดตัวอักษร) ---
-function getDetailedPrompt(campaign) {
-  const baseInstruction = `
-Act as a Senior Editorial Director for Vogue. 
-Write a sophisticated, poetic, and LONG editorial caption (2-3 sentences) about Lingling Kwong and ${campaign.includes('Dior') ? 'Dior' : 'Cartier'}.
-
-Requirements:
-- Style: DO NOT write short phrases. Write full, descriptive, and flowery sentences.
-- Minimum length: 40 words.
-- Content: Describe her aura, the atmosphere, and the luxury craftsmanship in detail.
-- Vocabulary: Use opulence, savoir-faire, mesmerizing, and transcendent.
-- Tone: Cinematic and high-fashion.
-- Constraint: Keep the total text around 180-200 characters.
-- Exclude: No hashtags.
+// --- 1. ฟังก์ชัน Prompt ที่คุณต้องการ (ปรับให้เป็น 2-3 ประโยค) ---
+function getPrompt() {
+  const brandName = currentCampaign.includes('Dior') ? 'Dior' : 'Cartier';
+  
+  // ปรับแบบที่ 2: Modern Chic (กระชับแต่หรู)
+  const commonRules = `
+Additional Instructions:
+- Write exactly 2 sophisticated sentences.
+- Keep the language high-end, modern, and chic (not too flowery).
+- Ensure sentences are complete and end with a period.
+- MUST include both "Lingling Kwong" and "${brandName}".
+- Total length must be under 50 words.
 `;
 
-  const campaignSpecific = {
-    Dior_Fashion: "Elaborate on the architectural silhouette of her Dior couture and her role as a modern fashion icon.",
-    Dior_Beauty: "Detail the luminous glow of her skin and the artistic mastery of Dior Beauty products on her face.",
-    Dior_EyeWear: "Describe the chic mystery behind the Dior lenses and how they frame her elegant features.",
-    Dior_PFW: "Capture the high-energy glamour of the Paris streets and her grand entrance at the Dior show.",
-    Cartier: "Focus on the sparkling heritage of Cartier diamonds and how they complement her regal elegance."
-  };
+  if(currentCampaign === "Dior_Fashion"){
+    return `Act as a luxury fashion editor. Write a chic 2-sentence caption for Lingling Kwong and Dior Fashion. Focus on modern luxury and iconic silhouettes. Sometimes include 1 subtle emoji.${commonRules}`;
+  }
 
-  return baseInstruction + (campaignSpecific[campaign] || "");
+  if(currentCampaign === "Dior_Beauty"){
+    return `Act as a luxury beauty editor. Write a chic 2-sentence caption for Lingling Kwong and Dior Beauty. Focus on ethereal radiance and sophisticated glow. Sometimes include beauty emoji.${commonRules}`;
+  }
+
+  if(currentCampaign === "Dior_EyeWear"){
+    return `Act as a luxury fashion editor. Write a chic 2-sentence eyewear caption for Lingling Kwong and Dior. Focus on magnetic allure and modern style. Sometimes include subtle fashion emoji.${commonRules}`;
+  }
+
+  if(currentCampaign === "Dior_PFW"){
+    return `Act as a fashion editor. Write a chic 2-sentence Paris Fashion Week caption for Lingling Kwong and Dior. Focus on front-row elegance and Parisian charm.${commonRules}`;
+  }
+
+  if(currentCampaign === "Cartier"){
+    return `Act as a jewelry editor. Write a chic 2-sentence jewelry caption for Lingling Kwong and Cartier. Focus on timeless prestige and exquisite brilliance. Sometimes include elegant emoji.${commonRules}`;
+  }
 }
 
-
-// --- AI GENERATE ---
+// --- 2. ฟังก์ชัน SPIN (เรียกใช้ getPrompt) ---
 async function spin() {
   if (isSpinning) return;
   isSpinning = true;
 
-  const el = document.getElementById("result");
-  el.classList.add("show");
-  el.innerText = "Crafting your luxury story...";
-
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzM2vKeyS51uyhbpwfrDC0M2bECF5TcVGKwswRK1ffKaceJkp4jsWBT1kAHYe0-3Adu/exec";
-
-  // 1. เรียกใช้ฟังก์ชัน Detailed Prompt ที่คุณต้องการ (ตัวนี้จะสั่ง AI ให้เขียนหรูและยาวขึ้น)
-  let finalPrompt = getDetailedPrompt(currentCampaign);
+  const resEl = document.getElementById("result");
+  const spinner = document.getElementById("loadingArea");
   
-  // เพิ่มความ Unique เพื่อไม่ให้ AI จำคำตอบเดิม
-  finalPrompt += `\n\nNote: Write 1-2 powerful and poetic sentences. Avoid one-word answers. Current Time: ${new Date().getTime()}`;
+  resEl.classList.remove("show");
+  resEl.innerText = "Crafting your luxury story...";
+  spinner.style.display = "block";
 
-  if (usedCaptions.length > 0) {
-    finalPrompt += "\nDo not repeat these ideas: " + usedCaptions.slice(-2).join(" | ");
-  }
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxGyOt3-U2tU8TeZXWsKGpR-aB2oeFr7J6UTJmJ7taqUPH0APt2S1jco_I982lJd84_/exec";
 
   try {
     const response = await fetch(WEB_APP_URL, {
       method: "POST",
-      body: JSON.stringify({ prompt: finalPrompt }) 
+      body: JSON.stringify({ prompt: getPrompt() }) // เปลี่ยนเป็น getPrompt() ตรงนี้
     });
 
     const data = await response.json();
-    let aiText = data.text || "No caption generated";
-    const tags = getAllTags();
+    let aiText = (data.text || "").trim();
     
-    // บันทึกประวัติ
-    if (data.text) {
-      usedCaptions.push(aiText.substring(0, 40));
-      if (usedCaptions.length > 5) usedCaptions.shift();
-    }
-
-    // 2. ตรรกะการรวมร่างและคุม 240 ตัวอักษร
-    let finalDisplay = tags ? aiText + "\n\n" + tags : aiText;
-
-    // ถ้าความยาวรวมเกิน 240 ให้ตัดเฉพาะส่วน AI Text
-   if (finalDisplay.length > 300) { // ขยับลิมิตจาก 240 เป็น 280
-  const tagLength = tags ? tags.length + 5 : 0; 
-  aiText = aiText.substring(0, 300 - tagLength) + "...";
-  finalDisplay = tags ? aiText + "\n\n" + tags : aiText;
-}
-
-    el.innerText = finalDisplay;
-    el.scrollTop = 0;
+    const tags = getAllTags();
+    resEl.innerText = aiText + "\n\n" + tags;
+    resEl.classList.add("show");
+    resEl.scrollTop = 0;
 
   } catch (err) {
-    el.innerText = "Error connection to AI";
-    console.error("Fetch Error:", err);
+    resEl.innerText = "Connection error. Please try again.";
+    resEl.classList.add("show");
+  } finally {
+    spinner.style.display = "none";
+    isSpinning = false;
   }
-  isSpinning = false;
 }
 
-// --- ฟังก์ชันอื่นๆ คงเดิมตามโค้ดของคุณ ---
+// --- ฟังก์ชันอื่นๆ คงเดิม ---
 function updateStatus() {
   let label = currentCampaign.replace("Dior_", "").replace("_", " ");
   document.getElementById("statusText").innerText = label + " • " + currentPlatform;
@@ -630,10 +263,10 @@ function updateStatus() {
 function theme(c) {
   let t = "Fashion";
   if (c === "Dior_Fashion") t = "Fashion";
-  if (c === "Dior_Beauty") t = "Beauty";
-  if (c === "Dior_EyeWear") t = "EyeWear";
-  if (c === "Dior_PFW") t = "PFW";
-  if (c === "Cartier") t = "Cartier";
+  else if (c === "Dior_Beauty") t = "Beauty";
+  else if (c === "Dior_EyeWear") t = "EyeWear";
+  else if (c === "Dior_PFW") t = "PFW";
+  else if (c === "Cartier") t = "Cartier";
   document.body.dataset.theme = t;
   const cursorGlow = document.getElementById("cursorGlow");
   if (cursorGlow) cursorGlow.style.background = `radial-gradient(circle, ${glow[t]}, transparent 60%)`;
@@ -641,44 +274,25 @@ function theme(c) {
 
 function setBrand(brand, btn) {
   currentBrand = brand;
-  usedCaptions = []; 
-  
-  // เปลี่ยนปุ่ม Active
   document.querySelectorAll(".brand-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
-
   const items = document.querySelectorAll(".campaign-item");
   let firstVisible = null;
-
   items.forEach(i => {
     const c = i.dataset.c;
-    // ตรวจสอบเงื่อนไขการโชว์ปุ่มแคมเปญ
     let show = (brand === "Dior" && c.startsWith("Dior")) || (brand === "Cartier" && c === "Cartier");
     i.style.display = show ? "block" : "none";
-    
-    // เก็บตัวแรกที่เจอไว้เพื่อเลื่อนไปหา
     if (show && !firstVisible) firstVisible = i;
   });
-
-  // เลื่อน Slider ไปที่แคมเปญแรกของแบรนด์นั้น
-  if (firstVisible) {
-    selectCampaign(firstVisible);
-  }
+  if (firstVisible) selectCampaign(firstVisible);
 }
 
 function selectCampaign(element) {
   if (!element) return;
-  
   currentCampaign = element.dataset.c;
-  usedCaptions = []; 
-
-  // อัปเดต UI
   document.querySelectorAll(".campaign-item").forEach(i => i.classList.remove("active"));
   element.classList.add("active");
-
-  // เลื่อนให้มาอยู่ตรงกลาง
   element.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-
   theme(currentCampaign);
   updateStatus();
 }
@@ -690,11 +304,9 @@ function setPlatform(p, btn) {
   updateStatus();
 }
 
-fetch("https://script.google.com/macros/s/AKfycbyVdhcXoJzEL4yG-vjcAwyBNQR4CGocENnawv-g7mrXKwmbN3aF4iHA9kPKuj_p608/exec")
+fetch("https://script.google.com/macros/s/AKfycbxGyOt3-U2tU8TeZXWsKGpR-aB2oeFr7J6UTJmJ7taqUPH0APt2S1jco_I982lJd84_/exec")
   .then(r => r.json())
-  .then(d => {
-    hashtagData = d.hashtags || [];
-  })
+  .then(d => { hashtagData = d.hashtags || []; })
   .catch(err => console.error("Fetch Error:", err));
 
 function getAllTags() {
@@ -708,7 +320,7 @@ function getAllTags() {
 
 function copy() {
   const text = document.getElementById("result").innerText;
-  if(!text || text === "Crafting your luxury story...") return;
+  if(!text) return;
   navigator.clipboard.writeText(text);
   const toast = document.getElementById("toast");
   toast.classList.add("show");
@@ -728,7 +340,6 @@ slider.addEventListener("scroll", () => {
   });
   if (best && best.dataset.c !== currentCampaign) {
     currentCampaign = best.dataset.c;
-    usedCaptions = []; 
     document.querySelectorAll(".campaign-item").forEach(i => i.classList.remove("active"));
     best.classList.add("active");
     theme(currentCampaign);
@@ -739,5 +350,6 @@ slider.addEventListener("scroll", () => {
 updateStatus();
 theme(currentCampaign);
 </script>
+
 </body>
 </html>
