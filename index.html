@@ -538,30 +538,31 @@ const glow = {
 
 // --- ฟังก์ชันสร้าง Prompt แบบหรูหรา (ปรับให้เหมาะสมกับขีดจำกัดตัวอักษร) ---
 function getDetailedPrompt(campaign) {
-  // หมายเหตุ: ถึงจะชื่อ LONG แต่เราจะคุมให้ AI เขียน 1-2 ประโยคที่สวยงามเพื่อให้รวมกับ Tag แล้วไม่เกิน 240 ตัวอักษร
   const baseInstruction = `
-Act as a Senior Editor for a world-class luxury fashion magazine (like Vogue).
-Write a sophisticated and poetic editorial caption about Lingling Kwong and ${campaign.includes('Dior') ? 'Dior' : 'Cartier'}.
+Act as a Senior Editorial Director for Vogue. 
+Write a sophisticated, poetic, and LONG editorial caption (2-3 sentences) about Lingling Kwong and ${campaign.includes('Dior') ? 'Dior' : 'Cartier'}.
 
 Requirements:
-- Tone: Extremely luxurious, ethereal, and cinematic.
-- Style: Write 1-2 full, beautiful sentences (Editorial Style).
-- Vocabulary: Use high-level fashion terms (e.g., savoir-faire, opulence, transcendent).
-- Strict Constraint: Total length must be between 120 - 160 characters only.
-- Exclude: Do not use hashtags in the AI text.
-- Language: English.
+- Style: DO NOT write short phrases. Write full, descriptive, and flowery sentences.
+- Minimum length: 40 words.
+- Content: Describe her aura, the atmosphere, and the luxury craftsmanship in detail.
+- Vocabulary: Use opulence, savoir-faire, mesmerizing, and transcendent.
+- Tone: Cinematic and high-fashion.
+- Constraint: Keep the total text around 180-200 characters.
+- Exclude: No hashtags.
 `;
 
   const campaignSpecific = {
-    Dior_Fashion: "Focus on the timeless silhouette of Dior's high fashion and how Lingling Kwong embodies the modern Dior woman.",
-    Dior_Beauty: "Focus on the luminous skin and the sophisticated glow Lingling Kwong brings to Dior Beauty.",
-    Dior_EyeWear: "Focus on the architectural design of the eyewear and the mysterious allure of her look.",
-    Dior_PFW: "Focus on the grand energy of Paris Fashion Week and her captivating presence at the Dior show.",
-    Cartier: "Focus on the sparkling heritage of Cartier jewelry and how her elegance reflects the brand's timeless prestige."
+    Dior_Fashion: "Elaborate on the architectural silhouette of her Dior couture and her role as a modern fashion icon.",
+    Dior_Beauty: "Detail the luminous glow of her skin and the artistic mastery of Dior Beauty products on her face.",
+    Dior_EyeWear: "Describe the chic mystery behind the Dior lenses and how they frame her elegant features.",
+    Dior_PFW: "Capture the high-energy glamour of the Paris streets and her grand entrance at the Dior show.",
+    Cartier: "Focus on the sparkling heritage of Cartier diamonds and how they complement her regal elegance."
   };
 
   return baseInstruction + (campaignSpecific[campaign] || "");
 }
+
 
 // --- AI GENERATE ---
 async function spin() {
@@ -604,12 +605,11 @@ async function spin() {
     let finalDisplay = tags ? aiText + "\n\n" + tags : aiText;
 
     // ถ้าความยาวรวมเกิน 240 ให้ตัดเฉพาะส่วน AI Text
-    if (finalDisplay.length > 240) {
-      const tagLength = tags ? tags.length + 5 : 0; 
-      const maxAiLength = 240 - tagLength;
-      aiText = aiText.substring(0, maxAiLength - 3) + "...";
-      finalDisplay = tags ? aiText + "\n\n" + tags : aiText;
-    }
+   if (finalDisplay.length > 300) { // ขยับลิมิตจาก 240 เป็น 280
+  const tagLength = tags ? tags.length + 5 : 0; 
+  aiText = aiText.substring(0, 300 - tagLength) + "...";
+  finalDisplay = tags ? aiText + "\n\n" + tags : aiText;
+}
 
     el.innerText = finalDisplay;
     el.scrollTop = 0;
@@ -690,7 +690,7 @@ function setPlatform(p, btn) {
   updateStatus();
 }
 
-fetch("https://script.google.com/macros/s/AKfycbzM2vKeyS51uyhbpwfrDC0M2bECF5TcVGKwswRK1ffKaceJkp4jsWBT1kAHYe0-3Adu/exec")
+fetch("https://script.google.com/macros/s/AKfycbyVdhcXoJzEL4yG-vjcAwyBNQR4CGocENnawv-g7mrXKwmbN3aF4iHA9kPKuj_p608/exec")
   .then(r => r.json())
   .then(d => {
     hashtagData = d.hashtags || [];
