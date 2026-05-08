@@ -495,11 +495,11 @@ h1{
 
 <div class="status" id="statusText">Fashion • IG</div>
 <div class="campaign-slider" id="slider">
-  <div class="campaign-item active" data-c="Dior_Fashion">Fashion</div>
-  <div class="campaign-item" data-c="Dior_Beauty">Beauty</div>
-  <div class="campaign-item" data-c="Dior_EyeWear">Eyewear</div>
-  <div class="campaign-item" data-c="Dior_PFW">PFW</div>
-  <div class="campaign-item" data-c="Cartier">Cartier</div>
+  <div class="campaign-item active" data-c="Dior_Fashion" onclick="selectCampaign(this)">Fashion</div>
+  <div class="campaign-item" data-c="Dior_Beauty" onclick="selectCampaign(this)">Beauty</div>
+  <div class="campaign-item" data-c="Dior_EyeWear" onclick="selectCampaign(this)">Eyewear</div>
+  <div class="campaign-item" data-c="Dior_PFW" onclick="selectCampaign(this)">PFW</div>
+  <div class="campaign-item" data-c="Cartier" onclick="selectCampaign(this)">Cartier</div>
 </div>
 
 <div class="platform-row">
@@ -518,12 +518,13 @@ h1{
 
 <div id="toast" class="toast">Copied</div>
 
-<script> // เอา type="module" ออกเพื่อให้ใช้งาน onclick ได้ง่ายขึ้น
-let captionsData = [], hashtagData = [];
+<script>
+let hashtagData = [];
 let currentBrand = "Dior";
 let currentCampaign = "Dior_Fashion";
 let currentPlatform = "IG";
 let isSpinning = false;
+let usedCaptions = []; 
 
 const n = t => (t || "").toLowerCase().replace(/\s|_/g, "");
 
@@ -535,7 +536,92 @@ const glow = {
   Cartier: "#F6FFDC44"
 };
 
-// --- ฟังก์ชันช่วยเหลือ ---
+// --- ฟังก์ชันสร้าง Prompt แบบหรูหรา (ปรับให้เหมาะสมกับขีดจำกัดตัวอักษร) ---
+function getDetailedPrompt(campaign) {
+  // หมายเหตุ: ถึงจะชื่อ LONG แต่เราจะคุมให้ AI เขียน 1-2 ประโยคที่สวยงามเพื่อให้รวมกับ Tag แล้วไม่เกิน 240 ตัวอักษร
+  const baseInstruction = `
+Act as a Senior Editor for a world-class luxury fashion magazine (like Vogue).
+Write a sophisticated and poetic editorial caption about Lingling Kwong and ${campaign.includes('Dior') ? 'Dior' : 'Cartier'}.
+
+Requirements:
+- Tone: Extremely luxurious, ethereal, and cinematic.
+- Style: Write 1-2 full, beautiful sentences (Editorial Style).
+- Vocabulary: Use high-level fashion terms (e.g., savoir-faire, opulence, transcendent).
+- Strict Constraint: Total length must be between 120 - 160 characters only.
+- Exclude: Do not use hashtags in the AI text.
+- Language: English.
+`;
+
+  const campaignSpecific = {
+    Dior_Fashion: "Focus on the timeless silhouette of Dior's high fashion and how Lingling Kwong embodies the modern Dior woman.",
+    Dior_Beauty: "Focus on the luminous skin and the sophisticated glow Lingling Kwong brings to Dior Beauty.",
+    Dior_EyeWear: "Focus on the architectural design of the eyewear and the mysterious allure of her look.",
+    Dior_PFW: "Focus on the grand energy of Paris Fashion Week and her captivating presence at the Dior show.",
+    Cartier: "Focus on the sparkling heritage of Cartier jewelry and how her elegance reflects the brand's timeless prestige."
+  };
+
+  return baseInstruction + (campaignSpecific[campaign] || "");
+}
+
+// --- AI GENERATE ---
+async function spin() {
+  if (isSpinning) return;
+  isSpinning = true;
+
+  const el = document.getElementById("result");
+  el.classList.add("show");
+  el.innerText = "Crafting your luxury story...";
+
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzM2vKeyS51uyhbpwfrDC0M2bECF5TcVGKwswRK1ffKaceJkp4jsWBT1kAHYe0-3Adu/exec";
+
+  // 1. เรียกใช้ฟังก์ชัน Detailed Prompt ที่คุณต้องการ (ตัวนี้จะสั่ง AI ให้เขียนหรูและยาวขึ้น)
+  let finalPrompt = getDetailedPrompt(currentCampaign);
+  
+  // เพิ่มความ Unique เพื่อไม่ให้ AI จำคำตอบเดิม
+  finalPrompt += `\n\nNote: Write 1-2 powerful and poetic sentences. Avoid one-word answers. Current Time: ${new Date().getTime()}`;
+
+  if (usedCaptions.length > 0) {
+    finalPrompt += "\nDo not repeat these ideas: " + usedCaptions.slice(-2).join(" | ");
+  }
+
+  try {
+    const response = await fetch(WEB_APP_URL, {
+      method: "POST",
+      body: JSON.stringify({ prompt: finalPrompt }) 
+    });
+
+    const data = await response.json();
+    let aiText = data.text || "No caption generated";
+    const tags = getAllTags();
+    
+    // บันทึกประวัติ
+    if (data.text) {
+      usedCaptions.push(aiText.substring(0, 40));
+      if (usedCaptions.length > 5) usedCaptions.shift();
+    }
+
+    // 2. ตรรกะการรวมร่างและคุม 240 ตัวอักษร
+    let finalDisplay = tags ? aiText + "\n\n" + tags : aiText;
+
+    // ถ้าความยาวรวมเกิน 240 ให้ตัดเฉพาะส่วน AI Text
+    if (finalDisplay.length > 240) {
+      const tagLength = tags ? tags.length + 5 : 0; 
+      const maxAiLength = 240 - tagLength;
+      aiText = aiText.substring(0, maxAiLength - 3) + "...";
+      finalDisplay = tags ? aiText + "\n\n" + tags : aiText;
+    }
+
+    el.innerText = finalDisplay;
+    el.scrollTop = 0;
+
+  } catch (err) {
+    el.innerText = "Error connection to AI";
+    console.error("Fetch Error:", err);
+  }
+  isSpinning = false;
+}
+
+// --- ฟังก์ชันอื่นๆ คงเดิมตามโค้ดของคุณ ---
 function updateStatus() {
   let label = currentCampaign.replace("Dior_", "").replace("_", " ");
   document.getElementById("statusText").innerText = label + " • " + currentPlatform;
@@ -548,15 +634,16 @@ function theme(c) {
   if (c === "Dior_EyeWear") t = "EyeWear";
   if (c === "Dior_PFW") t = "PFW";
   if (c === "Cartier") t = "Cartier";
-
   document.body.dataset.theme = t;
   const cursorGlow = document.getElementById("cursorGlow");
   if (cursorGlow) cursorGlow.style.background = `radial-gradient(circle, ${glow[t]}, transparent 60%)`;
 }
 
-// --- ฟังก์ชันที่ HTML เรียกใช้ (onclick) ---
 function setBrand(brand, btn) {
   currentBrand = brand;
+  usedCaptions = []; 
+  
+  // เปลี่ยนปุ่ม Active
   document.querySelectorAll(".brand-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
 
@@ -565,21 +652,35 @@ function setBrand(brand, btn) {
 
   items.forEach(i => {
     const c = i.dataset.c;
+    // ตรวจสอบเงื่อนไขการโชว์ปุ่มแคมเปญ
     let show = (brand === "Dior" && c.startsWith("Dior")) || (brand === "Cartier" && c === "Cartier");
     i.style.display = show ? "block" : "none";
+    
+    // เก็บตัวแรกที่เจอไว้เพื่อเลื่อนไปหา
     if (show && !firstVisible) firstVisible = i;
   });
 
+  // เลื่อน Slider ไปที่แคมเปญแรกของแบรนด์นั้น
   if (firstVisible) {
-    currentCampaign = firstVisible.dataset.c;
-    items.forEach(i => i.classList.remove("active"));
-    firstVisible.classList.add("active");
-    firstVisible.scrollIntoView({ behavior: "smooth", inline: "center" });
+    selectCampaign(firstVisible);
   }
+}
+
+function selectCampaign(element) {
+  if (!element) return;
+  
+  currentCampaign = element.dataset.c;
+  usedCaptions = []; 
+
+  // อัปเดต UI
+  document.querySelectorAll(".campaign-item").forEach(i => i.classList.remove("active"));
+  element.classList.add("active");
+
+  // เลื่อนให้มาอยู่ตรงกลาง
+  element.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
 
   theme(currentCampaign);
   updateStatus();
-  document.getElementById("result").classList.remove("show");
 }
 
 function setPlatform(p, btn) {
@@ -589,12 +690,10 @@ function setPlatform(p, btn) {
   updateStatus();
 }
 
-// --- ดึงข้อมูล Hashtags จาก API ---
-fetch("https://script.google.com/macros/s/AKfycbz6dT-nJnLhj40Lwxykm00GvA0ZwoPAHevukZf7Me3Ld2q-nn1259ZlTS8poOJbbljy/exec")
+fetch("https://script.google.com/macros/s/AKfycbzM2vKeyS51uyhbpwfrDC0M2bECF5TcVGKwswRK1ffKaceJkp4jsWBT1kAHYe0-3Adu/exec")
   .then(r => r.json())
   .then(d => {
     hashtagData = d.hashtags || [];
-    console.log("Hashtags Loaded:", hashtagData.length);
   })
   .catch(err => console.error("Fetch Error:", err));
 
@@ -607,66 +706,29 @@ function getAllTags() {
   return list.map(h => h.hashtags).join(" ");
 }
 
-// --- AI GENERATE ---
-async function spin() {
-  if (isSpinning) return;
-  isSpinning = true;
-
-  const el = document.getElementById("result");
-  el.classList.add("show");
-  el.innerText = "Generating...";
-
-  const promptMap = {
-    Dior_Fashion: "Write 1 short luxury fashion caption about Lingling Kwong and Dior. Elegant magazine tone. 1 sentence only.",
-    Dior_Beauty: "Write 1 short luxury beauty caption about Lingling Kwong and Dior Beauty. Soft elegant tone. 1 sentence only.",
-    Dior_EyeWear: "Write 1 chic luxury caption about Lingling Kwong and Dior Eyewear. Modern fashion tone. 1 sentence only.",
-    Dior_PFW: "Write 1 luxury Paris Fashion Week caption about Lingling Kwong and Dior. High fashion tone.",
-    Cartier: "Write 1 elegant jewelry caption about Lingling Kwong and Cartier. Luxury campaign tone."
-  };
-
-  try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbz6dT-nJnLhj40Lwxykm00GvA0ZwoPAHevukZf7Me3Ld2q-nn1259ZlTS8poOJbbljy/exec", {
-      method: "POST",
-      body: JSON.stringify({ prompt: promptMap[currentCampaign] })
-    });
-
-    const data = await response.json();
-    let text = data.text || "No caption generated";
-    const tags = getAllTags();
-    
-    el.innerText = tags ? text + "\n\n" + tags : text;
-  } catch (err) {
-    el.innerText = "Error connection to AI";
-    console.error(err);
-  }
-  isSpinning = false;
-}
-
 function copy() {
   const text = document.getElementById("result").innerText;
-  if(!text || text === "Generating...") return;
+  if(!text || text === "Crafting your luxury story...") return;
   navigator.clipboard.writeText(text);
   const toast = document.getElementById("toast");
   toast.classList.add("show");
   setTimeout(() => toast.classList.remove("show"), 1600);
 }
 
-// --- Scroll Detection ---
 const slider = document.getElementById("slider");
 slider.addEventListener("scroll", () => {
   let mid = window.innerWidth / 2;
   let best = null;
   let dist = 9999;
-
   document.querySelectorAll(".campaign-item").forEach(i => {
     if (i.style.display === "none") return;
     let r = i.getBoundingClientRect();
     let d = Math.abs(mid - (r.left + r.width / 2));
     if (d < dist) { dist = d; best = i; }
   });
-
   if (best && best.dataset.c !== currentCampaign) {
     currentCampaign = best.dataset.c;
+    usedCaptions = []; 
     document.querySelectorAll(".campaign-item").forEach(i => i.classList.remove("active"));
     best.classList.add("active");
     theme(currentCampaign);
@@ -674,10 +736,8 @@ slider.addEventListener("scroll", () => {
   }
 });
 
-// Initial Setup
 updateStatus();
 theme(currentCampaign);
 </script>
-
 </body>
 </html>
