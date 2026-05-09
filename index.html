@@ -1,88 +1,81 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>00K Captions</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>00K Captions</title>
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#F9B2D7">
-<link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#F9B2D7">
+    <link rel="apple-touch-icon" href="icon-192.png">
 
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-<style>
-:root{
-  --accent:#F9B2D7;
-  --accent2:#CFECF3;
-}
+    <style>
+        :root { --accent: #F9B2D7; --accent2: #CFECF3; }
+        body[data-theme="Fashion"] { --accent: #F9B2D7; --accent2: #CFECF3; }
+        body[data-theme="Beauty"] { --accent: #CFECF3; --accent2: #DAF9DE; }
+        body[data-theme="EyeWear"] { --accent: #DAF9DE; --accent2: #F6FFDC; }
+        body[data-theme="PFW"] { --accent: #D9C2FF; --accent2: #FFE8F5; }
+        body[data-theme="Cartier"] { --accent: #F6FFDC; --accent2: #F9B2D7; }
 
-body[data-theme="Fashion"]{ --accent:#F9B2D7; --accent2:#CFECF3; }
-body[data-theme="Beauty"]{ --accent:#CFECF3; --accent2:#DAF9DE; }
-body[data-theme="EyeWear"]{ --accent:#DAF9DE; --accent2:#F6FFDC; }
-body[data-theme="PFW"]{  --accent:#D9C2FF;  --accent2:#FFE8F5;}
-body[data-theme="Cartier"]{ --accent:#F6FFDC; --accent2:#F9B2D7; }
+        body {
+            margin: 0; color: #111; font-family: 'Plus Jakarta Sans', sans-serif;
+            display: flex; justify-content: center; align-items: center; padding: 12px;
+            min-height: 100vh; overflow-x: hidden; box-sizing: border-box; background-color: #000;
+        }
 
-body{
-  margin:0;
-  color:#111;
-  font-family:'Plus Jakarta Sans',sans-serif;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:12px;
-  min-height:100vh;
-  overflow-x:hidden;
-  box-sizing:border-box;
-  background-attachment:fixed;
-  background-color:#000;
-}
+        #cursorGlow { position: fixed; width: 300px; height: 300px; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); filter: blur(40px); mix-blend-mode: screen; z-index: 1; }
 
-#cursorGlow{
-  position:fixed;
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  filter:blur(40px);
-  mix-blend-mode:screen;
-  z-index:1;
-}
+        /* Dynamic Backgrounds */
+        body[data-theme="Fashion"] { background-color: #1d1b1c; background-image: linear-gradient(rgba(0,0,0,.28), rgba(0,0,0,.28)), url("https://lingigupdate-code.github.io/00k-Caption/image/fashion.jpg"); background-size: contain; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+        body[data-theme="Beauty"] { background-color: #d9d0cf; background-image: linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)), url("https://lingigupdate-code.github.io/00k-Caption/image/beauty.jpg"); background-size: contain; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+        body[data-theme="EyeWear"] { background-color: #cfc7b8; background-image: linear-gradient(rgba(0,0,0,.20), rgba(0,0,0,.20)), url("https://lingigupdate-code.github.io/00k-Caption/image/eyewear.jpg"); background-size: contain; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+        body[data-theme="PFW"] { background-color: #2a2328; background-image: linear-gradient(rgba(0,0,0,.30), rgba(0,0,0,.30)), url("https://lingigupdate-code.github.io/00k-Caption/image/pfw.jpg"); background-size: contain; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+        body[data-theme="Cartier"] { background-color: #b8aa8c; background-image: linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)), url("https://lingigupdate-code.github.io/00k-Caption/image/cartier.jpg"); background-size: contain; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
 
-/* 🎨 dynamic backgrounds */
-body[data-theme="Fashion"]{ background-color:#1d1b1c; background-image: linear-gradient(rgba(0,0,0,.28), rgba(0,0,0,.28)), url("https://lingigupdate-code.github.io/00k-Caption/image/fashion.jpg"); background-size:contain; background-position:center center; background-repeat:no-repeat; background-attachment:fixed; }
-body[data-theme="Beauty"]{ background-color:#d9d0cf; background-image: linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)), url("https://lingigupdate-code.github.io/00k-Caption/image/beauty.jpg"); background-size:contain; background-position:center center; background-repeat:no-repeat; background-attachment:fixed; }
-body[data-theme="EyeWear"]{ background-color:#cfc7b8; background-image: linear-gradient(rgba(0,0,0,.20), rgba(0,0,0,.20)), url("https://lingigupdate-code.github.io/00k-Caption/image/eyewear.jpg"); background-size:contain; background-position:center center; background-repeat:no-repeat; background-attachment:fixed; }
-body[data-theme="PFW"]{ background-color:#2a2328; background-image: linear-gradient(rgba(0,0,0,.30), rgba(0,0,0,.30)), url("https://lingigupdate-code.github.io/00k-Caption/image/pfw.jpg"); background-size:contain; background-position:center center; background-repeat:no-repeat; background-attachment:fixed; }
-body[data-theme="Cartier"]{ background-color:#b8aa8c; background-image: linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)), url("https://lingigupdate-code.github.io/00k-Caption/image/cartier.jpg"); background-size:contain; background-position:center center; background-repeat:no-repeat; background-attachment:fixed; }
+        .card {
+            position: relative; z-index: 2; width: 100%; max-width: 420px;
+            display: flex; flex-direction: column; gap: 14px;
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px;
+            max-height: 94vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
 
-/* card */
-.card{
-  position:relative;
-  z-index:2;
-  width:100%;
-  max-width:420px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  background:rgba(255,255,255,0.01);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:10px;
-  padding:20px;
-  height:auto;
-  max-height:92vh;
-  overflow-y:auto;
-  box-sizing:border-box;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
-}
+        h1 { font-family: 'Outfit', sans-serif; font-weight: 600; margin: 0; color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.35); letter-spacing: .5px; text-align: center; }
 
-h1{ font-family:'Outfit',sans-serif; font-weight:600; margin:0; color:#fff; text-shadow: 0 2px 12px rgba(0,0,0,.35); letter-spacing:.5px; }
-.status{ font-size:12px; color:rgba(255,255,255,.78); letter-spacing:.3px; }
+        /* Social Header Grid */
+        .social-header { margin: 5px 0 10px 0; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 18px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-label { font-size: 10px; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); letter-spacing: 1.5px; text-align: center; margin-bottom: 10px; }
+        .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 
-/* campaign */
+        .social-item {
+            display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px;
+            text-decoration: none; font-size: 10px; border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease;
+        }
+
+        /* สำหรับไอคอนปกติ */
+        .social-item i { font-size: 14px; width: 18px; text-align: center; }
+        
+        /* สำหรับปุ่มที่มีรูปภาพ */
+        .social-item.has-image { flex-direction: column; padding: 8px 4px; text-align: center; gap: 4px; }
+        .social-item img { width: 28px; height: 28px; object-fit: cover; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.15); }
+        
+        .social-item span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+
+        .social-item:hover { background: rgba(255, 255, 255, 0.15); color: var(--accent); transform: translateY(-2px); border-color: var(--accent); }
+        .social-item.has-image:hover { border-color: #fff; }
+
+        /* Buttons & Tabs */
+        .brand-tabs { display: flex; gap: 10px; }
+        .brand-btn { flex: 1; padding: 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; transition: 0.3s; font-weight: 600; }
+        .brand-btn.active { background: #fff; color: #000; }
+        .status { font-size: 12px; color: rgba(255,255,255,0.6); text-align: center; }
+
+        /* campaign */
 .campaign-slider{
   display:flex;
 
@@ -101,6 +94,12 @@ h1{ font-family:'Outfit',sans-serif; font-weight:600; margin:0; color:#fff; text
 
 .campaign-item{
   flex:0 0 64%;
+  
+  cursor: pointer; /* ทำให้เมาส์เปลี่ยนเป็นรูปมือเมื่อชี้ */
+
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+
+  user-select: none;
 
   padding:14px;
 
@@ -137,250 +136,505 @@ h1{ font-family:'Outfit',sans-serif; font-weight:600; margin:0; color:#fff; text
     0 8px 20px rgba(0,0,0,0.12);
 }
 
+        .platform-row { display: flex; gap: 10px; }
+        .platform-btn { flex: 1; padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; cursor: pointer; }
+        .platform-btn.active { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #000; font-weight: 600; }
+        .actions { display: flex; gap: 10px; }
+        .main-btn { flex: 1; padding: 15px; border-radius: 15px; border: none; background: var(--accent); color: #000; font-weight: 700; cursor: pointer; }
+        .copy-btn { background: rgba(255,255,255,0.1); color: #fff; }
+        .result { padding: 15px; border-radius: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; min-height: 50px; white-space: pre-line; display: none; }
+        .result.show { display: block; }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #000; padding: 10px 20px; border-radius: 20px; font-weight: 600; opacity: 0; transition: 0.3s; pointer-events: none; z-index: 999; }
+        .toast.show { opacity: 1; }
 
-.platform-row{ display:flex; gap:10px; }
-.platform-btn{ flex:1; text-align:center; font-size:14px; padding:10px 0; border-radius:20px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.08); backdrop-filter:blur(8px); color:#fff; }
-.platform-btn.active{ background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#000; }
-
-.actions{ display:flex; gap:10px; }
-.main-btn{ flex:1; padding:14px; border-radius:20px; border:none; background:#000; color:#fff; font-weight:600; cursor: pointer;}
-.copy-btn{ flex:.6; }
-
-.result{
-  min-height: 80px;
-  max-height:260px;
-  overflow-y:auto;
-  padding:16px;
-  border-radius:20px;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(3px);
-  border:1px solid rgba(255,255,255,0.10);
-  white-space:pre-line;
-  opacity:0;
-  color:#fff;
-  line-height:1.7;
-  text-shadow: 0 1px 10px rgba(0,0,0,.25);
-  transition: opacity 0.3s;
+/* จัดระเบียบหน้าจอหลัก */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 420px;
+    height: 96vh; /* คุมความสูงรวมไม่ให้ล้นจอ */
 }
-.result.show{ opacity:1; }
 
-.brand-tabs{ display:flex; gap:12px; width:100%; }
-.brand-btn{ flex:1; padding:13px 0; border-radius:20px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.06); backdrop-filter:blur(10px); color:rgba(255,255,255,.78); font-weight:600; text-align:center; transition:.28s ease; }
-.brand-btn.active{ color:#111; background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,255,255,.55)); border:1px solid rgba(255,255,255,.28); transform:translateY(-1px); }
-
-.toast{ position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); padding:12px 22px; border-radius:999px; background:rgba(255,255,255,0.14); backdrop-filter:blur(5px); border:1px solid rgba(255,255,255,0.16); color:#fff; font-size:14px; font-weight:600; opacity:0; pointer-events:none; z-index:9999; transition: 0.3s; }
-.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-
-.spinner {
-  width: 24px; height: 24px;
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  border-left-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 10px auto;
-  display: none;
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-sizing: border-box;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
 
-</style>
+/* Card บน: ปรับให้กระทัดรัด */
+.bio-card { flex-shrink: 0; }
+.gen-card { flex-grow: 1; overflow-y: auto; } /* Card ล่างยืดหยุ่นตามที่เหลือ */
+
+/* หัวข้อ */
+h1, .section-title { 
+    font-family: 'Outfit', sans-serif; 
+    color: #fff; 
+    text-align: center; 
+    margin: 0; 
+    font-size: 18px; 
+}
+
+/* ส่วนของการจัดวางปุ่ม */
+.actions { 
+    display: flex; 
+    gap: 10px; 
+    margin-top: 5px; /* ลดระยะห่างให้ชิดกับ Platform มากขึ้น */
+    width: 100%;
+}
+
+.main-btn { 
+    flex: 2.5; /* ปรับให้ปุ่ม Random ใหญ่ขึ้นเป็น 2.5 เท่า */
+    padding: 16px; 
+    border-radius: 14px; 
+    border: none; 
+    background: var(--accent); 
+    color: #000; 
+    font-weight: 800; /* เพิ่มความหนาตัวอักษรให้เด่น */
+    cursor: pointer; 
+    transition: 0.2s; 
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.copy-btn { 
+    flex: 1; /* ปุ่ม Copy จะเล็กลงเหลือ 1 ส่วน */
+    background: rgba(255,255,255,0.12); 
+    color: #fff; 
+    border: 1px solid rgba(255,255,255,0.1); 
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.main-btn:active { 
+    transform: scale(0.97); 
+}
+
+/* ปรับระยะห่าง Platform Row ไม่ให้ห่างจากปุ่มเกินไป */
+.platform-row { 
+    display: flex; 
+    gap: 8px; 
+    margin-bottom: 2px; 
+}
+
+
+@media (max-width: 480px) {
+    /* 1. ล็อคความสูง Card ให้พอดีหน้าจอ */
+    .card {
+        width: 94% !important;
+        max-width: 360px !important;
+        /* บังคับความสูงให้พอดีจอ และหักลบ margin บนล่าง */
+        margin: 20px auto !important;
+        padding: 15px !important;
+        
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important; /* ลดช่องว่างระหว่างส่วนประกอบ */
+        
+        box-sizing: border-box !important;
+        overflow: hidden !important; /* ห้ามให้ Card ขยายออกเด็ดขาด */
+    }
+
+    /* 2. บีบส่วนบนให้ประหยัดพื้นที่ที่สุด */
+    h1 { font-size: 18px !important; margin: 0 !important; }
+    
+    .social-header { 
+        padding: 8px !important; 
+        margin: 0 !important;
+        flex-shrink: 0; /* ห้ามส่วนนี้โดนบีบจนหาย */
+    }
+    
+    .social-grid { gap: 4px !important; }
+    .social-item { height: 35px !important; font-size: 8px !important; }
+    .social-item img { width: 16px !important; height: 16px !important; }
+
+    /* 3. ส่วนกลาง (Tabs/Slider/Buttons) */
+    .brand-tabs, .platform-row { gap: 5px !important; flex-shrink: 0; }
+    .brand-btn, .platform-btn { padding: 8px !important; font-size: 11px !important; }
+    
+    .campaign-slider { padding: 5px 0 !important; flex-shrink: 0; }
+    /* ปรับความกว้างให้เห็นตัวถัดไปโผล่มา 15-20% */
+
+
+/* เพิ่มจุด Pagination Dots เพื่อความสวยงามและบอกจำนวนหน้า */
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: -5px 0 10px 0;
+}
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: 0.3s;
+}
+.dot.active {
+    background: var(--accent);
+    transform: scale(1.3);
+}
+
+    /* 4. จุดสำคัญ: กล่อง Result จะเป็นส่วนเดียวที่ "ยืดหยุ่น" */
+    .result {
+        display: none;
+        flex-grow: 1; /* ให้กล่องนี้กินพื้นที่ที่เหลือทั้งหมดที่ว่างอยู่ */
+        width: 100% !important;
+        margin: 5px 0 !important;
+        padding: 10px !important;
+        font-size: 14px !important;
+        
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-radius: 12px !important;
+        
+        /* ถ้าข้อความยาว ให้ไถอ่านข้างในกล่องนี้แทน */
+        overflow-y: auto !important; 
+        box-sizing: border-box !important;
+        border: 1px solid var(--accent) !important;
+    }
+
+    .result.show { display: block !important; }
+
+    /* 5. ปุ่มกดล่างสุด */
+    .actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px; /* เพิ่มระยะก่อนถึงกล่อง Result */
+}
+    
+    .main-btn { padding: 12px !important; font-size: 13px !important; }
+}
+
+.business-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(90deg, #F9B2D7, #CFECF3); /* ไล่สีตามธีม */
+    color: #000;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.business-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(249, 178, 215, 0.4);
+    filter: brightness(1.1);
+}
+
+.business-btn i {
+    font-size: 16px;
+}
+
+@media (min-width: 768px) {
+    .nav-btn { display: flex; align-items: center; justify-content: center; }
+}
+.btn-prev { left: -5px; }
+.btn-next { right: -5px; }
+
+    </style>
 </head>
 
 <body data-theme="Fashion">
-<div id="cursorGlow"></div>
+    <div id="cursorGlow"></div>
+    
+    <div class="container">
+        <div class="card bio-card">
+            <h1>00K BIOGRAPHY</h1>
+            <div class="social-header">
+            <div class="footer-label">Connect with 00K</div>
+            <div class="social-grid">
+                <a href="https://www.instagram.com/linglingkwong" target="_blank" class="social-item has-image">
+                    <img src="https://lingigupdate-code.github.io/00k-Caption/image/instagram.jpg" alt="Instagram"><span>Instagram</span>
+                </a>
+                <a href="https://x.com/linglingsirilak" target="_blank" class="social-item has-image">
+                    <img src="https://lingigupdate-code.github.io/00k-Caption/image/x.jpg" alt="X"><span>X</span>
+                </a>
+                <a href="https://www.tiktok.com/@linglingkwong" target="_blank" class="social-item has-image">
+                    <img src="https://lingigupdate-code.github.io/00k-Caption/image/tiktok.jpg" alt="TikTok"><span>TikTok</span>
+                </a>
+                <a href="https://weibo.com/u/7884299354" target="_blank" class="social-item has-image">
+                    <img src="https://lingigupdate-code.github.io/00k-Caption/image/weibo.jpg" alt="Weibo">
+<span>Weibo</span>
+                </a>
+                <a href="https://ch3plus.com/artists/451" target="_blank" class="social-item has-image">
+                    <img src="https://lingigupdate-code.github.io/00k-Caption/image/3plus.jpg" alt="3Plus">
+                    <span>3Plus</span>
+                </a>
+                <a href="https://youtu.be/gnsw94UdSds" target="_blank" class="social-item has-image">
+                    <img src="https://lingigupdate-code.github.io/00k-Caption/image/inloveforever.jpg" alt="วาดฝันวันวิวาห์">
+                    <span>วาดฝันวันวิวาห์</span>
+                </a>
+                <a href="https://alwayswonder-co.com/" target="_blank" class="social-item has-image">
+                    <img src="https://lingigupdate-code.github.io/00k-Caption/image/alwayswonder.jpg" alt="AlwaysWonder">
+                    <span>AlwaysWonder</span>
+                </a>
+                <a href="https://www.instagram.com/kwongkeeroast" target="_blank" class="social-item has-image">
+                    <img src="https://lingigupdate-code.github.io/00k-Caption/image/kwongkeeroast.jpg" alt="Kwong Kee Roast">
+                    <span>KwongKeeRoast</span>
+                </a>
+                <a href="https://www.instagram.com/kwong.pastry" target="_blank" class="social-item has-image">
+                    <img src="https://lingigupdate-code.github.io/00k-Caption/image/kwongpastry.jpg" alt="Kwong Pastry">
+                    <span>KwongPastry</span>
+                </a>
+            </div>
 
-<div class="card">
-  <h1>00K CAPTIONS</h1>
+        </div>
 
-  <div class="brand-tabs">
-    <button class="brand-btn active" onclick="setBrand('Dior',this)">Dior</button>
-    <button class="brand-btn" onclick="setBrand('Cartier',this)">Cartier</button>
-  </div>
+<a href="presenters.html" class="business-btn">
+        <i class="fa-solid fa-briefcase"></i> 00K BUSINESS BRAND CARDS
+    </a>
 
-  <div class="status" id="statusText">Fashion • IG</div>
-  <div class="campaign-slider" id="slider">
+</div>
+
+<!-- ส่วนของโครงสร้างใหม่ภายใน card gen-card -->
+<div class="card gen-card">
+    <h2 class="section-title">00K RANDOM CAPTIONS</h2>
+    
+    <!-- 1. เลือกแบรนด์ -->
+    <div class="brand-tabs">
+        <button class="brand-btn active" onclick="setBrand('Dior',this)">Dior</button>
+        <button class="brand-btn" onclick="setBrand('Cartier',this)">Cartier</button>
+    </div>
+
+   
+
+    <!-- 2. Slider เลือกแคมเปญ (คลิกที่ตัวแคมเปญเพื่อเลือกได้เลย) -->
+      <div class="campaign-slider" id="slider">
     <div class="campaign-item active" data-c="Dior_Fashion" onclick="selectCampaign(this)">Fashion</div>
     <div class="campaign-item" data-c="Dior_Beauty" onclick="selectCampaign(this)">Beauty</div>
     <div class="campaign-item" data-c="Dior_EyeWear" onclick="selectCampaign(this)">Eyewear</div>
     <div class="campaign-item" data-c="Dior_PFW" onclick="selectCampaign(this)">PFW</div>
     <div class="campaign-item" data-c="Cartier" onclick="selectCampaign(this)" style="display:none;">Cartier</div>
   </div>
+    <div class="slider-dots" id="dotsContainer"></div>
 
-  <div class="platform-row">
-    <button class="platform-btn active" onclick="setPlatform('IG',this)">IG</button>
-    <button class="platform-btn" onclick="setPlatform('X',this)">X</button>
-  </div>
+    <!-- 3. เลือกแพลตฟอร์ม -->
+    <div class="platform-row">
+        <button class="platform-btn active" onclick="setPlatform('IG',this)">IG</button>
+        <button class="platform-btn" onclick="setPlatform('X',this)">X</button>
+    </div>
 
-  <div class="actions">
-    <button class="main-btn" onclick="spin()">✨ RANDOM</button>
-    <button class="main-btn copy-btn" onclick="copy()">COPY</button>
-  </div>
+<div class="status" id="statusText">Fashion • IG</div>
 
-  <div id="loadingArea" class="spinner"></div>
-  <div id="result" class="result"></div>
+    <!-- 4. ปุ่ม Random และ Copy (ย้ายมาไว้ตรงนี้) -->
+    <div class="actions">
+        <button class="main-btn" onclick="spin()">✨ RANDOM CAPTION</button>
+        <button class="main-btn copy-btn" onclick="copy()">COPY</button>
+    </div>
+
+    <!-- 5. กล่องแสดงผลลัพธ์ -->
+    <div id="result" class="result"></div>
 </div>
 
-<div id="toast" class="toast">Copied</div>
+    <div id="toast" class="toast">Copied to Clipboard!</div>
 
-<script>
-let hashtagData = [];
-let currentBrand = "Dior";
-let currentCampaign = "Dior_Fashion";
-let currentPlatform = "IG";
-let isSpinning = false;
+    <script>
+        let captionsData = [], hashtagData = [];
+        let currentBrand = "Dior", currentCampaign = "Dior_Fashion", currentPlatform = "IG", isSpinning = false;
 
-const n = t => (t || "").toLowerCase().replace(/\s|_/g, "");
-const glow = { Fashion: "#F9B2D744", Beauty: "#CFECF344", EyeWear: "#DAF9DE44", PFW: "#D9C2FF44", Cartier: "#F6FFDC44" };
+        const n = t => (t || "").toLowerCase().replace(/\s|_/g, "");
 
-function getPrompt() {
-  const brand = currentCampaign.includes('Dior') ? 'Dior' : 'Cartier';
-  const core = `2 sentences. Max 30 words. Luxury style. Include "Lingling Kwong" and "${brand}".`;
+        function updateStatus() {
+            let label = currentCampaign.replace("Dior_", "").replace("_", " ");
+            document.getElementById("statusText").innerText = label + " • " + currentPlatform;
+        }
 
-  if(currentCampaign === "Dior_Fashion") return `Dior Fashion, Lingling Kwong. Topic: Iconic silhouette. ${core}`;
-  if(currentCampaign === "Dior_Beauty") return `Dior Beauty, Lingling Kwong. Topic: Ethereal glow. ${core}`;
-  if(currentCampaign === "Dior_EyeWear") return `Dior Eyewear, Lingling Kwong. Topic: Magnetic allure. ${core}`;
-  if(currentCampaign === "Dior_PFW") return `Dior PFW, Lingling Kwong. Topic: Parisian charm. ${core}`;
-  if(currentCampaign === "Cartier") return `Cartier Jewelry, Lingling Kwong. Topic: Exquisite brilliance. ${core}`;
-}
+        function setBrand(brand, btn) {
+    currentBrand = brand;
+    isInternalScrolling = true; // ล็อค Scroll Listener ชั่วคราว
 
-async function spin() {
-  if (isSpinning) return;
-  isSpinning = true;
+    // 1. เปลี่ยนสถานะปุ่ม Brand ที่คลิก
+    document.querySelectorAll(".brand-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
 
-  const resEl = document.getElementById("result");
-  const spinner = document.getElementById("loadingArea");
-  
-  resEl.classList.remove("show");
-  resEl.innerText = "";
-  spinner.style.display = "block";
+    // 2. กรองเฉพาะ Campaign ที่ตรงกับ Brand เท่านั้น
+    const allItems = document.querySelectorAll(".campaign-item");
+    let firstVisibleMatch = null;
 
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxKk0Plbn87hefHTdXxTGhTAHZZeAXzsQcfIj2Amhjg2kMdRp1yF-zYOB72jsU45NXI/exec";
+    allItems.forEach(item => {
+        const campaignKey = item.dataset.c;
+        // เช็คว่าแคมเปญนี้เป็นของแบรนด์ที่เลือกหรือไม่
+        const belongsToDior = (brand === "Dior" && campaignKey.startsWith("Dior"));
+        const belongsToCartier = (brand === "Cartier" && campaignKey === "Cartier");
 
-  try {
-    const response = await fetch(WEB_APP_URL, {
-      method: "POST",
-      body: JSON.stringify({ prompt: getPrompt() })
+        if (belongsToDior || belongsToCartier) {
+            item.style.display = "flex"; // แสดงเฉพาะของแบรนด์นั้น
+            if (!firstVisibleMatch) firstVisibleMatch = item;
+        } else {
+            item.style.display = "none"; // ซ่อนแบรนด์อื่นให้หมด
+        }
     });
 
-    const data = await response.json();
-    let aiText = (data.text || "").trim();
-    
-    const tags = getAllTags();
-    resEl.innerText = aiText + "\n\n" + tags;
-    resEl.classList.add("show");
+    // 3. จัดการการเลือกตัวแรกของแบรนด์นั้น
+    if (firstVisibleMatch) {
+        // ล้างสถานะ active เก่าออกให้หมด
+        allItems.forEach(i => i.classList.remove("active"));
+        
+        // ตั้งค่าตัวแรกให้เป็น Active
+        firstVisibleMatch.classList.add("active");
+        currentCampaign = firstVisibleMatch.dataset.c;
 
-  } catch (err) {
-    resEl.innerText = "Error. Please try again.";
-    resEl.classList.add("show");
-  } finally {
-    spinner.style.display = "none";
-    isSpinning = false;
-  }
+        // เลื่อน Slider กลับไปที่ตัวแรกสุด (ซ้ายสุด)
+        const sliderEl = document.getElementById("slider");
+        sliderEl.scrollLeft = 0; 
+
+        // อัปเดต Theme และ UI
+        theme(currentCampaign);
+        updateStatus();
+        if (typeof updateDots === "function") updateDots(); // อัปเดตจุดบอกตำแหน่ง
+    }
+
+    // ปลดล็อค Scroll หลังจัดการทุกอย่างเสร็จ
+    setTimeout(() => { isInternalScrolling = false; }, 100);
 }
 
-function setBrand(brand, btn) {
-  if (isSpinning) return;
-  currentBrand = brand;
-  
-  document.querySelectorAll(".brand-btn").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-  
-  const items = document.querySelectorAll(".campaign-item");
-  let firstVisible = null;
+        function theme(c) {
+            let t = "Fashion";
+            if (c === "Dior_Fashion") t = "Fashion";
+            else if (c === "Dior_Beauty") t = "Beauty";
+            else if (c === "Dior_EyeWear") t = "EyeWear";
+            else if (c === "Dior_PFW") t = "PFW";
+            else if (c === "Cartier") t = "Cartier";
+            document.body.dataset.theme = t;
+            const glowColors = { Fashion:"#F9B2D744", Beauty:"#CFECF344", EyeWear:"#DAF9DE44", PFW:"#D9C2FF44", Cartier:"#F6FFDC44" };
+            document.getElementById("cursorGlow").style.background = `radial-gradient(circle, ${glowColors[t]}, transparent 60%)`;
+        }
 
-  items.forEach(i => {
-    const c = i.dataset.c;
-    const isMatch = (brand === "Dior" && c.startsWith("Dior")) || (brand === "Cartier" && c === "Cartier");
-    i.style.display = isMatch ? "block" : "none";
-    if (isMatch && !firstVisible) firstVisible = i;
-  });
+        fetch("https://script.google.com/macros/s/AKfycbwLXSog_nkbwnrRHBjZ4i35SSYiRmgNNPZL3YeGitAJlDceXYkJw0gLQ9zvc8Ra7ivc6w/exec")
+            .then(r => r.json()).then(d => { captionsData = d.captions || []; hashtagData = d.hashtags || []; filter(); });
 
-  const slider = document.getElementById("slider");
-  slider.scrollLeft = 0; // รีเซ็ตตำแหน่ง scroll
-
-  if (firstVisible) selectCampaign(firstVisible);
-  document.getElementById("result").classList.remove("show");
-}
-
-function selectCampaign(element) {
-  if (!element) return;
-  currentCampaign = element.dataset.c;
-  document.querySelectorAll(".campaign-item").forEach(i => i.classList.remove("active"));
-  element.classList.add("active");
-  element.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-  theme(currentCampaign);
-  updateStatus();
-}
-
-function updateStatus() {
-  let label = currentCampaign.replace("Dior_", "").replace("_", " ");
-  document.getElementById("statusText").innerText = label + " • " + currentPlatform;
-}
-
-function theme(c) {
-  let t = c.startsWith("Dior") ? c.split("_")[1] : "Cartier";
-  document.body.dataset.theme = t;
-  const cursorGlow = document.getElementById("cursorGlow");
-  if (cursorGlow) cursorGlow.style.background = `radial-gradient(circle, ${glow[t]}, transparent 60%)`;
-}
-
-function setPlatform(p, btn) {
-  currentPlatform = p;
-  document.querySelectorAll(".platform-btn").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-  updateStatus();
-}
-
-fetch("https://script.google.com/macros/s/AKfycbxKk0Plbn87hefHTdXxTGhTAHZZeAXzsQcfIj2Amhjg2kMdRp1yF-zYOB72jsU45NXI/exec")
-  .then(r => r.json())
-  .then(d => { hashtagData = d.hashtags || []; })
-  .catch(err => console.error("Fetch Error:", err));
-
-function getAllTags() {
-  const list = hashtagData.filter(h => 
-    n(h.brand) === n(currentBrand) &&
-    n(h.campaign) === n(currentCampaign) &&
-    n(h.platform) === n(currentPlatform)
-  );
-  return list.map(h => h.hashtags).join(" ");
-}
-
-function copy() {
-  const text = document.getElementById("result").innerText;
-  if(!text) return;
-  navigator.clipboard.writeText(text);
-  const toast = document.getElementById("toast");
-  toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 1600);
-}
-
-// Fixed Scroll Listener
-const slider = document.getElementById("slider");
+        // แก้ไข Scroll Listener เดิมให้เรียก updateDots() ด้วย
 slider.addEventListener("scroll", () => {
-  const visibleItems = Array.from(document.querySelectorAll(".campaign-item")).filter(i => i.style.display !== "none");
-  if (visibleItems.length <= 1) return;
+    if (isInternalScrolling) return;
 
-  let mid = slider.scrollLeft + (slider.offsetWidth / 2);
-  let best = null;
-  let dist = 9999;
-  
-  visibleItems.forEach(i => {
-    let center = i.offsetLeft + (i.offsetWidth / 2);
-    let d = Math.abs(mid - center);
-    if (d < dist) { dist = d; best = i; }
-  });
+    const visibleItems = Array.from(document.querySelectorAll(".campaign-item"))
+                             .filter(i => i.style.display !== "none");
+    
+    let mid = slider.scrollLeft + (slider.offsetWidth / 2);
+    let best = null;
+    let dist = 9999;
+    
+    visibleItems.forEach(i => {
+        let center = i.offsetLeft + (i.offsetWidth / 2);
+        let d = Math.abs(mid - center);
+        if (d < dist) { dist = d; best = i; }
+    });
 
-  if (best && best.dataset.c !== currentCampaign) {
-    currentCampaign = best.dataset.c;
-    document.querySelectorAll(".campaign-item").forEach(i => i.classList.remove("active"));
-    best.classList.add("active");
-    theme(currentCampaign);
-    updateStatus();
-  }
+    if (best && best.dataset.c !== currentCampaign) {
+        currentCampaign = best.dataset.c;
+        document.querySelectorAll(".campaign-item").forEach(i => i.classList.remove("active"));
+        best.classList.add("active");
+        theme(currentCampaign);
+        updateStatus();
+        updateDots(); // เพิ่มบรรทัดนี้
+    }
+});
+
+// --- ส่วนที่ทำให้ใช้ลูกกลิ้งเมาส์เลื่อนซ้ายขวาได้ (Mouse Wheel) ---
+slider.addEventListener('wheel', (e) => {
+    if (e.deltaY !== 0) {
+        e.preventDefault();
+        slider.scrollLeft += e.deltaY;
+    }
 });
 
 updateStatus();
 theme(currentCampaign);
-</script>
 
+// ฟังก์ชันสร้างและอัปเดตจุด Dots
+function updateDots() {
+    const dotsContainer = document.getElementById("dotsContainer");
+    const visibleItems = Array.from(document.querySelectorAll(".campaign-item"))
+                              .filter(i => i.style.display !== "none");
+    
+    dotsContainer.innerHTML = ""; 
+    visibleItems.forEach((item) => {
+        const dot = document.createElement("div");
+        dot.className = "dot" + (item.classList.contains("active") ? " active" : "");
+        dotsContainer.appendChild(dot);
+    });
+}
+
+// ทำให้ Campaign Item คลิกได้
+document.querySelectorAll('.campaign-item').forEach(item => {
+    item.addEventListener('click', function() {
+        if (this.style.display === "none") return;
+        
+        isInternalScrolling = true; // ล็อคชั่วคราวขณะเลื่อน
+        this.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        
+        currentCampaign = this.dataset.c;
+        document.querySelectorAll(".campaign-item").forEach(i => i.classList.remove("active"));
+        this.classList.add("active");
+        
+        theme(currentCampaign);
+        updateStatus();
+        updateDots();
+        
+        setTimeout(() => { isInternalScrolling = false; }, 600);
+    });
+});
+
+// อย่าลืมเรียก updateDots() ในฟังก์ชัน setBrand และใน scroll listener เดิมด้วยครับ
+
+        function setPlatform(p, btn) {
+            currentPlatform = p;
+            document.querySelectorAll(".platform-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            updateStatus(); filter();
+        }
+
+        function filter() {
+            document.getElementById("result").classList.remove("show");
+        }
+
+        function spin() {
+            if (isSpinning) return;
+            const filtered = captionsData.filter(c => n(c.brand) === n(currentBrand) && n(c.campaign) === n(currentCampaign)).map(c => c.caption);
+            if (!filtered.length) return;
+            isSpinning = true;
+            const el = document.getElementById("result"); el.classList.add("show");
+            let i = 0;
+            const int = setInterval(() => {
+                el.innerText = filtered[Math.floor(Math.random() * filtered.length)];
+                if (i++ > 12) {
+                    clearInterval(int);
+                    const cap = filtered[Math.floor(Math.random() * filtered.length)];
+                    const tags = hashtagData.find(h => n(h.brand) === n(currentBrand) && n(h.campaign) === n(currentCampaign) && n(h.platform) === n(currentPlatform));
+                    el.innerText = cap + (tags ? "\n\n" + tags.hashtags : "");
+                    isSpinning = false;
+                }
+            }, 60);
+        }
+
+        function copy() {
+            const t = document.getElementById("result").innerText;
+            if (!t) return;
+            navigator.clipboard.writeText(t);
+            const toast = document.getElementById("toast");
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2000);
+        }
+
+        document.addEventListener("mousemove", e => {
+            const g = document.getElementById("cursorGlow");
+            g.style.left = e.clientX + "px"; g.style.top = e.clientY + "px";
+        });
+    </script>
 </body>
 </html>
